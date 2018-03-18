@@ -1,0 +1,14 @@
+@keyframes slide_fromBottom {
+	0%{	top: 120%;}
+	100%{top: 0;}
+}
+
+@keyframes slide_fromLeft {
+	0%{	left: -120%;}
+	100%{left: 0;}
+}
+
+@keyframes slide_fromRight {
+	0%{	right: -120%;}
+	100%{right: 0;}
+}
