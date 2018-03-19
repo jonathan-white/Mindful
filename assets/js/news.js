@@ -2,6 +2,7 @@ $(document).ready(function(){
 	// ------------------------------
 	// News API Endpoint & Ajax Call
 	// ------------------------------
+	
 	// Setup endpoint definition
 	var endpoint = 'https://newsapi.org/v2/top-headlines?';
 	endpoint += 'country=us';
@@ -91,8 +92,16 @@ $(document).ready(function(){
 				}
 			}
 		});
-
 	});
+
+	// ------------------------------
+	// Youtube Endpoint & Ajax Call
+	// ------------------------------
+	
+	var youtube = "https://www.youtube.com/embed?listType=search&list=";
+	var sQuery = "cats";
+	youtube += sQuery;
+	console.log(youtube);
 
 	// Purpose: Generates a bootstrap card in the DOM. 
 	// Parameter(s): 
@@ -102,6 +111,17 @@ $(document).ready(function(){
 		// Ensure the article entry has an image available to display.
 		if(article.urlToImage != null && article.urlToImage.startsWith("http")) {
 			card = $("<div class='card'>");
+
+			const clickTrigger = $("<div class='click-trigger'>");
+
+			// Add click event listener
+			clickTrigger.on('click', function(event) {
+				event.preventDefault();
+				console.log('card opened');
+				$(this).closest('.card').toggleClass('expanded');
+				$(".prevent-hover-effect").toggleClass('active');
+			});
+
 			// Image tag and pull image source from article entry
 			const img = $("<img class='card-img-top'>").attr({
 				src: article.urlToImage,
@@ -110,24 +130,28 @@ $(document).ready(function(){
 			// Text overlay wrapper div
 			const card_body = $("<div class='card-body'>");
 
-			// Article Source
+			// Article Title (brief description)
 			const card_body_h5 = $("<h5 class='card-title'>").text(article.title);
 
-			// Article Title (brief description)
-			const card_body_p = $("<p class='card-text'>").text("Source: " + article.source.name);
+			// Article Source
+			const card_body_source = $("<p class='card-text'>").html("Source: <a href='"+ article.url +"' target='_blank'>" + article.source.name + "</a>");
 
-			// Add elements to each other and then to the DOM
-			card_body.append(card_body_h5,card_body_p);
-			card.append(img,card_body);
+			// Article Full Description
+			const card_body_desc = $("<p class='card-text desc'>").text(article.description);
+
+			const card_close = $("<div class='close-btn'>").text("X");
 
 			// Add click event listener
-			card.on('click', function(event) {
+			card_close.on('click', function(event) {
 				event.preventDefault();
-				console.log('card clicked');
-				$(this).toggleClass('expanded');
+				console.log('card closed');
+				$(this).closest('.card').toggleClass('expanded');
 				$(".prevent-hover-effect").toggleClass('active');
 			});
-			// target.append(card);
+			// Add elements to each other and then to the DOM
+			card_body.append(card_body_h5,card_body_source,card_body_desc);
+			card.append(img,card_body,card_close,clickTrigger);
+
 		}
 		return card;
 	}
