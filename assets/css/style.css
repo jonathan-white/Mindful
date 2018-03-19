@@ -9,11 +9,17 @@ body{
 /*---------------*/
 /* Article Cards */
 /*---------------*/
-.news-container {
+#news-container {
 	display: flex;
 	flex-flow: row;
 	justify-content: center;
 	width: 100%;
+	transition: opacity 500ms 500ms;
+	margin: 0;
+}
+
+#news-container:hover .card {
+	opacity: .3;
 }
 
 .card {
@@ -25,22 +31,24 @@ body{
 	transition: transform 500ms;
 }
 
-.card:hover {
+#news-container .card:hover {
 	box-shadow: 0px 2px 50px rgba(0,0,0,.8), 0px 0px 20px 10px rgba(0,0,0,0.6);
 	z-index: 1;
+	opacity: 1;
 }
 
 /* Scale cards by a factor of 1.1 on hover. Also Adjust how the card moves
    depending on which column it falls under */
-.img-col-1 .card:hover {transform: matrix(1.1,0,0,1.1,35,0);}
+.img-col-1 .card:hover {transform: matrix(1.1,0,0,1.1,20,0);}
 .img-col-2 .card:hover {transform: scale(1.1);}
-.img-col-3 .card:hover {transform: matrix(1.1,0,0,1.1,-35,0);}
+.img-col-3 .card:hover {transform: matrix(1.1,0,0,1.1,-20,0);}
 
 
 /* Article Image Zoom out */
 .card-img-top {
 	transform: scale(1.2);
 	transition: transform 500ms;
+	border-radius: 0;
 }
 .card:hover .card-img-top {
 	transform: scale(1);
@@ -63,29 +71,53 @@ body{
 .img-col-2 .card:hover .card-body {animation: slide_fromBottom 1s ease forwards;}
 .img-col-3 .card:hover .card-body {animation: slide_fromRight 1s ease forwards;}
 
+/* Nav Bar */
 
-/*------------*/
-/* Navigation */
-/*------------*/
-
-.nav {
-	display: flex;
-	position: absolute;
-	justify-content: center;
-	top: 165px;
-	width: 100%;
-	margin: 0 auto;
-	height: 50px;
+.navbar .form-control {
+	padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
 }
 
-.nav-item {
-    text-align: center;
-    line-height: 3rem;
-    width: 200px;
-    height: 50px;
-    background-color: rgba(0,0,0,.8);
-    margin: 20px;
-    border-radius: 5px;
+.form-control-dark {
     color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
 }
 
+.food {
+	width: 135px;
+}
+
+
+/* Expanded News Article */
+
+.card.expanded {
+	position: fixed;
+	top: 48px;
+	left: 0;
+	width: 100%;
+	height: 70vh;
+	z-index: 2;
+}
+
+.img-col-1 .card.expanded:hover,
+.img-col-2 .card.expanded:hover,
+.img-col-3 .card.expanded:hover {
+	transform: none;
+}
+
+.card.expanded .card-img-top {
+	transform: none;
+}
+
+/* Overlays on top of the entire screen, darkens the screen and 
+  helps to disable the hover effect of all other cards when a 
+  specific card has been chosen */
+.prevent-hover-effect.active {
+    position: fixed;
+    top: 48px;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.5);
+}

@@ -12,3 +12,8 @@
 	0%{	right: -120%;}
 	100%{right: 0;}
 }
+
+@keyframes expand {
+	0% {height: 0;}
+	100% {height: 70vh;}
+}
