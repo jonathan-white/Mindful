@@ -139,11 +139,15 @@ a:hover {
 .card.expanded {
 	position: fixed;
 	top: 48px;
-	left: 0;
-	width: 100%;
+	/*left: 0;*/
+	/*width: 100%;*/
 	height: 70vh;
 	z-index: 2;
 }
+
+.img-col-1 .card.expanded {animation: expand_fromLeft 500ms forwards;}
+.img-col-2 .card.expanded {animation: expand_fromCenter 2500ms forwards;}
+.img-col-3 .card.expanded {animation: expand_fromRight 500ms forwards;}
 
 .card.expanded .click-trigger {
 	display: none;
