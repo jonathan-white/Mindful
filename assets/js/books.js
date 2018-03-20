@@ -13,6 +13,8 @@ $(document).ready(function(){
 
 	var bookQuery = "https://cors-anywhere.herokuapp.com/https://www.goodreads.com/series/40321-drina?format=xml&key=vlAmuUJ8My4qLZCU7MCQ";
 	bookQuery = "https://www.googleapis.com/books/v1/volumes?q=the+name+of+the+wind";
+	bookQuery += "&maxResults=40";
+
 	$.ajax({
 		url: bookQuery,
 		type: 'GET'
@@ -20,8 +22,8 @@ $(document).ready(function(){
 		console.log(response);
 		var books = response.items;
 		for (var i = 0; i < books.length; i++) {
-			var book = $("<div>").text(books[i].volumeInfo.title);
-			$("#books-container .shelf-top").append(book);
+			var book = $("<div class='book'>").text(books[i].volumeInfo.title);
+			$("#books-container .shelf").eq(0).append(book);
 		}
 		// var json = xmlToJson(response);
 		// // console.log(json);

@@ -55,15 +55,40 @@ footer .right {
 	width: 100%;
 }
 
-.shelf-top,
-.shelf-bottom {
+.shelf {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: flex-end;
 	position: relative;
 	width: 100%;
-	height: 50%;
+	height: 80%;
 	border: 20px solid #ff6300;
+	background-image: url(../images/wood/images2.jpeg);
+	background-size: 20% 100%;
 }
 
-.shelf-top {
-	display: flex;
-	
+.book {
+	position: relative;
+	writing-mode: vertical-lr;
+	font-size: 20px;
+	border: 1px solid #856404;
+    padding: 6px;
+    background-color: #6f5508;
+    background: linear-gradient(to right, #000 0%, #6f5508 20%, #6f5508 80%, #000 100%);
+    color: #fff;
+    border-radius: 2px;
+    margin: 1px;
+    user-select: none;
+    font-weight: 600px;
+}
+
+.book::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 20px;
+	background-color: #6f5508;
+
 }
