@@ -43,3 +43,27 @@ footer .right {
 	font-size: 10px;
 	line-height: 2em;
 }
+
+#books-container {
+	position: relative;
+	background-color: pink;
+	height: 87vh;
+}
+
+.divider {
+	border: 1px solid #000;
+	width: 100%;
+}
+
+.shelf-top,
+.shelf-bottom {
+	position: relative;
+	width: 100%;
+	height: 50%;
+	border: 20px solid #ff6300;
+}
+
+.shelf-top {
+	display: flex;
+	
+}
