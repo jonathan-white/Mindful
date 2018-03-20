@@ -100,7 +100,7 @@ footer .right {
     font-weight: 600;
     transform: rotate(180deg);
     text-align: right;
-    text-shadow: 0 0 5px #000;
+    text-shadow: 0 0 5px #000, 0 0 2px #fff;
 }
 
 .book::before {
@@ -112,25 +112,44 @@ footer .right {
     height: 25px;
     color: var(--categoryTitle);
     background-color: var(--categoryBanner);
+    /*background: linear-gradient(to right, #000 0%, attr(data-banner-color) 10%, attr(data-banner-color) 90%, #000 100%);*/
     transform: rotate(180deg);
     writing-mode: horizontal-tb;
     font-size: 8px;
     text-align: center;
     line-height: 3;
 }
-.book-wrapper.lean-forward-1 {
+
+/*.book::after {
+	content: attr(data-title-length);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    line-height: 1.5;
+    background-color: #fff;
+    border: 1px solid #000;
+    font-size: 13px;
+    padding: 4px;
+    color: #000;
+}*/
+
+.book-wrapper.lean-1 {
 	width: 6%;
     left: 14px;
 }
-.book-wrapper.lean-forward-1 .book {
+.book-wrapper.lean-1 .book {
 	transform: rotate(190deg);
 }
 
-.book-wrapper.lean-forward-2 {
+.book-wrapper.lean-2 {
     width: 8%;
     left: 22px;
 }
-.book-wrapper.lean-forward-2 .book {
+.book-wrapper.lean-2 .book {
 	transform: rotate(165deg);
 }
 

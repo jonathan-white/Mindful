@@ -57,15 +57,27 @@ $(document).ready(function(){
 		for (var i = 0; i < books.length; i++) {
 			var book = $("<div class='book'>").text(books[i].volumeInfo.title);
 
+			// Adjust the height of the book based on the length of the title
+			var title_length = books[i].volumeInfo.title.length;
+			if(title_length > 30 && title_length < 39){
+				book.css('fontSize', '1rem');
+			}else if(title_length >= 39) {
+				book.css('fontSize', '.875rem');
+			}
+
 
 			if (books[i].volumeInfo.authors && books[i].volumeInfo.categories) {
 				var author = books[i].volumeInfo.authors[0] || [];
 				var author_lastName = author.split(' ');
 
 				book.attr({
+					"data-isbn": books[i].volumeInfo.industryIdentifiers[0].identifier,
 					"data-category": books[i].volumeInfo.categories[0] || 'none',
-					"data-author": author_lastName[author_lastName.length-1]
+					"data-author": author_lastName[author_lastName.length-1],
+					"data-banner-color": "#000"
 				});
+			}else {
+				book.attr('data-banner-color', 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			}
 
 			var randomColor = 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')';
@@ -78,6 +90,7 @@ $(document).ready(function(){
 			// document.documentElement.style.setProperty("--categoryBanner", 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			
 			var bookWrapper = $("<div class='book-wrapper'>").append(book);
+			bookWrapper.attr('id', 'bk_' + books[i].volumeInfo.industryIdentifiers[0].identifier);
 
 			if(books[i].volumeInfo.categories && books[i].volumeInfo.categories[0].length > 18){
 				bookWrapper.addClass('x-2');
@@ -89,7 +102,21 @@ $(document).ready(function(){
 				$(".shelf-bottom").append(bookWrapper);	
 			}
 			
+			// Obtain the rendered width of the book (add to an array)
+			var bookEl = document.getElementById("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier);
+			var bookRect = bookEl.getBoundingClientRect();
+			console.log("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier + "- width:"+ bookRect.width);
+
+			// TODO: adjust the number of books on each shelf based on the
+			// rendered width of all books on that shelf when the screen resizes
+
 		}
-	}
+	};
+
+	$(window).resize(function(event) {
+		// Available width within the bookshelf
+		console.log($("#books-container").width() - 40);
+	});
+
 });
 
