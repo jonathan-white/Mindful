@@ -39,7 +39,7 @@ $(document).ready(function(){
 
 	$("#search").change(function(event) {
 		event.preventDefault();
-		var query = $(this).val();
+		var query = $(this).val().trim();
 
 		// Display 30 search results sorted by popularity
 		var endpoint = 'https://newsapi.org/v2/everything?';

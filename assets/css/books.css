@@ -4,6 +4,8 @@
 
 :root {
 	--brown: #6f5508;
+	--categoryTitle: #ffffc3;
+	--categoryBanner: #000;
 }
 
 
@@ -98,8 +100,24 @@ footer .right {
     font-weight: 600;
     transform: rotate(180deg);
     text-align: right;
+    text-shadow: 0 0 5px #000;
 }
 
+.book::before {
+    content: attr(data-author);
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    color: var(--categoryTitle);
+    background-color: var(--categoryBanner);
+    transform: rotate(180deg);
+    writing-mode: horizontal-tb;
+    font-size: 8px;
+    text-align: center;
+    line-height: 3;
+}
 .book-wrapper.lean-forward-1 {
 	width: 6%;
     left: 14px;
@@ -108,24 +126,37 @@ footer .right {
 	transform: rotate(190deg);
 }
 
-.book.x-1 {
+.book-wrapper.lean-forward-2 {
+    width: 8%;
+    left: 22px;
+}
+.book-wrapper.lean-forward-2 .book {
+	transform: rotate(165deg);
+}
+
+.book-wrapper.stack-1 {
+	width: 4%;
+    left: 20px;
+}
+.book-wrapper.stack-1 .book {
+	transform: rotate(168deg);
+}
+
+.book-wrapper.x-1 .book {
 	padding: 6px 6px 40px;
 }
 
-.book.x-2 {
+.book-wrapper.x-2 .book {
 	padding: 6px 20px 40px;
 }
 
-.book.x-3 {
+.book-wrapper.x-3 .book{
 	padding: 6px 40px 40px;
 }
 
-.book::before {
-	content: '';
-	position: absolute;
-	bottom: 20px;
-	left: 0;
-	width: 100%;
-	height: 10px;
-	background-color: #000;
+
+
+.book:hover {
+	/*transform: rotateZ(170deg);*/
+	cursor: pointer;
 }
