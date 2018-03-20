@@ -32,6 +32,11 @@ $(document).ready(function(){
 		// Error handling
 	});
 
+	$(".prevent-hover-effect").click(function(event) {
+		$(".card.expanded").toggleClass('expanded');
+		$(this).toggleClass('active');
+	});
+
 	$("#search").change(function(event) {
 		event.preventDefault();
 		var query = $(this).val();
@@ -82,15 +87,15 @@ $(document).ready(function(){
 		for (var c = 0; c < 3; c++) {
 			if (c === 0){
 				for (var r = 0; r < 7; r++) {
-					col_one.append(aCard(articles[r]));
+					col_one.prepend(aCard(articles[r]));
 				}
 			}else if (c === 1){
 				for (var r = 7; r < 14; r++) {
-					col_two.append(aCard(articles[r]));
+					col_two.prepend(aCard(articles[r]));
 				}
 			}else if(c === 2){
 				for (var r = 14; r < 20; r++) {
-					col_three.append(aCard(articles[r]));
+					col_three.prepend(aCard(articles[r]));
 				}	
 			}
 		}
@@ -106,11 +111,6 @@ $(document).ready(function(){
 		// 	});
 		// 	// <img src="blank.gif" data-src="my_image.png" width="600" height="400" class="lazy">
 		// 	$(".img-col-1").append(img);
-		// }
-		// // Option 2 (flexbox):
-		// $("#news-container").empty();
-		// for (var i = 0; i < articles.length; i++) {
-		// 	$("#news-container").append(aCard(articles[i]));
 		// }
 	}
 
@@ -159,7 +159,7 @@ $(document).ready(function(){
 			});
 			// Add elements to each other and then to the DOM
 			card_body.append(card_body_h5,card_body_source,card_body_desc);
-			card.prepend(img,card_body,card_close,clickTrigger);
+			card.append(img,card_body,card_close,clickTrigger);
 
 		}
 		return card;
