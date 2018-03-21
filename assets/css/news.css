@@ -170,7 +170,7 @@
 
 .card.expanded .article-video {
     position: absolute;
-    top: 66%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 75%;
@@ -178,6 +178,8 @@
     background-color: rgba(52, 58, 64, .8);
     border-radius: 5px;
     padding-top: 20px;
+    opacity: 0;
+    animation: rise_fromBottom 1000ms 3s forwards;
 }
 
 .card.expanded .article-video::after {

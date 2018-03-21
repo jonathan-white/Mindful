@@ -72,3 +72,9 @@
 	30%, 50%, 70% {	transform: translate3d(-4px, 0, 0);}
 	40%, 60% {transform: translate3d(4px, 0, 0);}
 }
+
+/* Video container on load */
+@keyframes rise_fromBottom {
+	0%{	top: 130%;opacity: 0;}
+	100%{top: 70%;opacity: 1;}
+}

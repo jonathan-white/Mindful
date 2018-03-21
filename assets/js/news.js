@@ -121,12 +121,6 @@ $(document).ready(function(){
 				$(this).closest('.card').toggleClass('expanded');
 				$(".prevent-hover-effect").toggleClass('active');
 
-				// BUG #1: When an article is open and you click the bottom of the page
-				// to close the article (instead of the close button), another set
-				// of videos are loaded on the new article that you clicked on.
-				// BUG #2: Also, all of the cards within the same column you clicked within
-				// will have a width that spans the entire page.
-				// TODO: Only run getVideos when prevent-hover-effect is active
 				if($(".prevent-hover-effect").hasClass('active')){
 					getVideos(article.title, $(this).siblings('.article-content').children('.article-video'));	
 				}

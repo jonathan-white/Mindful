@@ -56,7 +56,8 @@ $(document).ready(function(){
 		var accentColors = ["#000","#fff","#f00","#00f"];
 		for (var i = 0; i < books.length; i++) {
 			var book = $("<div class='book'>").text(books[i].volumeInfo.title);
-
+			
+			// book.attr('data-title-length', books[i].volumeInfo.title.length);
 			// Adjust the height of the book based on the length of the title
 			var title_length = books[i].volumeInfo.title.length;
 			if(title_length > 30 && title_length < 39){
