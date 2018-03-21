@@ -54,7 +54,7 @@
 
 /* Hide elements that will only be visible when the article has been clicked */
 .article-text .desc,
-.article-text .article-video,
+.article-video,
 .card .close-btn {
 	display: none;
 }
@@ -63,6 +63,7 @@
     color: #fff;
     text-shadow: 0px 0px 10px rgba(0,0,0,0.8), 2px 2px 5px #000;
     background-color: rgba(0,0,0,0.5);
+    background: linear-gradient(rgba(0,0,0,0.5) 80%, transparent);
     opacity: 1;
     width: 100%;
 }
@@ -72,7 +73,7 @@
 
 /* Have text fly in from different sides, depending on the column */
 .img-col-1 .card:hover .article-text {animation: slide_fromLeft 1s ease forwards;}
-.img-col-2 .card:hover .article-text {animation: slide_fromBottom 1s ease forwards;}
+.img-col-2 .card:hover .article-text {animation: slide_fromTop 1s ease forwards;}
 .img-col-3 .card:hover .article-text {animation: slide_fromRight 1s ease forwards;}
 
 .click-trigger {
@@ -143,7 +144,6 @@
     width: 100%;
 }
 .card.expanded .close-btn,
-.card.expanded .card-body,
 .card.expanded .article-video,
 .card.expanded .article-text .desc {
 	display: block;
@@ -241,10 +241,15 @@
     text-shadow: 0 0 5px #000;
 }
 
+.slick-prev {
+	left: -37px;
+}
+
 .slick-arrow {
 	font-size: 30px;
 }
 
-.slick-prev {
-	left: -37px;
-}
+/*.slick-arrow:hover {
+	animation: shake 820ms cubic-bezier(.36, .07, .19, .97) both;
+}*/
+

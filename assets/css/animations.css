@@ -1,3 +1,10 @@
+
+/* Article Preview Text on Hover */
+@keyframes slide_fromTop {
+	0%{	top: -10%;opacity: 0;}
+	100%{top: 0;opacity: 1;}
+}
+
 @keyframes slide_fromBottom {
 	0%{	top: 10%;opacity: 0;}
 	100%{top: 0;opacity: 1;}
@@ -13,6 +20,7 @@
 	100%{right: 0;opacity: 1;}
 }
 
+/* Expand Article when opening */
 @keyframes expand_fromLeft {
 	0% {
 		width: 33%; 
@@ -51,7 +59,16 @@
 	}
 }
 
+/* Page Links on hover */
 @keyframes text_boom {
 	50% {text-shadow: 0 0 5px #fff;}
 	100% {text-shadow: 0 0 20px #fff;}
+}
+
+/* Video Carousel Buttons on hover */
+@keyframes shake {
+	10%, 90% {transform: translate3d(-1px, 0, 0);}
+	20%, 80% {transform: translate3d(2px, 0, 0);}
+	30%, 50%, 70% {	transform: translate3d(-4px, 0, 0);}
+	40%, 60% {transform: translate3d(4px, 0, 0);}
 }
