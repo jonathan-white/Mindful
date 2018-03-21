@@ -180,7 +180,7 @@ $(document).ready(function(){
 	// and appends them to the 'target' element
 	function getVideos(query, target){
 		var youtubeEndpoint = "https://www.googleapis.com/youtube/v3/search?";
-		youtubeEndpoint += "q=" + query;
+		youtubeEndpoint += "q=" + encodeURIComponent(query);
 		youtubeEndpoint += "&maxResults=10";
 		youtubeEndpoint += "&part=snippet";
 		youtubeEndpoint += "&type=video";

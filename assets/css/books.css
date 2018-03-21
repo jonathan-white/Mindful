@@ -135,3 +135,17 @@
 	/*transform: rotateZ(170deg);*/
 	cursor: pointer;
 }
+
+/* After Opening a Book */
+
+/*.book-open {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 75%;
+    background-color: pink;
+    border-radius: 2px;
+    display: 
+}*/
