@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
 	// Initialize Firebase
 	var config = {
 		apiKey: "AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0",
@@ -61,24 +60,6 @@ $(document).ready(function(){
 			// Error handling
 		});
 	});
-
-	// ------------------------------
-	// Youtube Endpoint & Ajax Call
-	// ------------------------------
-	
-	// var youtubeEndpoint = "https://www.googleapis.com/youtube/v3/search?";
-	// youtubeEndpoint += "q=cats";
-	// youtubeEndpoint += "&maxResults=25";
-	// youtubeEndpoint += "&part=snippet";
-	// youtubeEndpoint += "&key=AIzaSyAm23TJ9V0IroP_-LPZHlyRj1-P4UbkqHk";
-
-	// $.ajax({
-	// 	url: youtubeEndpoint,
-	// 	type: 'GET',
-	// }).then(function(response) {
-	// 	console.log(response);
-	// });
-	
 
 	// ------------------------------
 	// Updates the DOM with the returned list of Articles
@@ -189,8 +170,13 @@ $(document).ready(function(){
 		return card;
 	}
 
-	function getVideos(query, target){
+	// ------------------------------
+	// News Youtube Endpoint & Ajax Call
+	// ------------------------------
 
+	// Gets a list of youtube videos based on the 'query'
+	// and appends them to the 'target' element
+	function getVideos(query, target){
 		var youtubeEndpoint = "https://www.googleapis.com/youtube/v3/search?";
 		youtubeEndpoint += "q=" + query;
 		youtubeEndpoint += "&maxResults=10";
@@ -207,14 +193,14 @@ $(document).ready(function(){
 			var videos = response.items;
 			if (videos.length > 0){
 				for (var i = 0; i < videos.length; i++) {
-					var vidID = videos[i].id.videoId;
-					var video = $("<iframe>");
+					const vidID = videos[i].id.videoId;
+					const video = $("<iframe>");
 					video.attr({
 						"class": "video",
 						"type": "text/html",
 						"width": 187,
 						// "height": 390,
-						"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1&origin=https://motionswing.github.io",
+						"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1",
 						"frameborder": 0
 					});
 					target.append(video);
@@ -227,11 +213,10 @@ $(document).ready(function(){
 					slidesToScroll: 3
 				});	
 			}else {
+				// If no videos are found update the DOM to notify the end user
 				var noResults = $("<div class='no-videos'>").text("No Videos Found");
 				target.append(noResults);
 			}
-			
 		});
-
 	};
 });

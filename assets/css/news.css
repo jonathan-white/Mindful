@@ -55,7 +55,6 @@
 /* Hide elements that will only be visible when the article has been clicked */
 .article-text .desc,
 .article-text .article-video,
-.card .card-body,
 .card .close-btn {
 	display: none;
 }
@@ -211,7 +210,9 @@
     font-weight: 300;
 }
 
+/*-----------------------*/
 /* Slick Arrow Overrides */
+/*-----------------------*/
 .slick-next:before
 {
     content: '\261B';
