@@ -76,7 +76,7 @@
     line-height: 3;
 }
 
-/*.book::after {
+.book::after {
 	content: attr(data-title-length);
     position: absolute;
     left: 50%;
@@ -91,7 +91,7 @@
     font-size: 13px;
     padding: 4px;
     color: #000;
-}*/
+}
 
 /* Tilt/Lean/Stack books */
 .book-wrapper.lean-1 {

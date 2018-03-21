@@ -54,12 +54,17 @@ $(document).ready(function(){
 		$(".shelf-top, .shelf-bottom").empty();
 
 		var accentColors = ["#000","#fff","#f00","#00f"];
+		var numOfTiltedBooks = 3;
+		var booksWeCanTilt = [];
+		var tiltedBooks = [];
+		
 		for (var i = 0; i < books.length; i++) {
+
 			var book = $("<div class='book'>").text(books[i].volumeInfo.title);
 			
-			// book.attr('data-title-length', books[i].volumeInfo.title.length);
-			// Adjust the height of the book based on the length of the title
 			var title_length = books[i].volumeInfo.title.length;
+			book.attr('data-title-length', books[i].volumeInfo.title.length);
+			// Adjust the height of the book based on the length of the title
 			if(title_length > 30 && title_length < 39){
 				book.css('fontSize', '1rem');
 			}else if(title_length >= 39) {
@@ -111,6 +116,19 @@ $(document).ready(function(){
 			// TODO: adjust the number of books on each shelf based on the
 			// rendered width of all books on that shelf when the screen resizes
 
+			// Check if the length is > 30 or < 50
+			if (title_length >= 20) {
+				booksWeCanTilt.push({
+					bookID: bookWrapper.attr("id"),
+					bookIndex: i
+				});
+			}
+
+		}
+		console.log(booksWeCanTilt);
+
+		for (var i = 0; i < numOfTiltedBooks; i++) {
+			$("#"+booksWeCanTilt[Math.floor(Math.random() * booksWeCanTilt.length)].bookID).addClass('lean-' + Math.floor(Math.random() * 2));
 		}
 	};
 

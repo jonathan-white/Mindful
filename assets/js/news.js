@@ -190,6 +190,10 @@ $(document).ready(function(){
 		$.ajax({
 			url: youtubeEndpoint,
 			type: 'GET',
+			headers: {
+				"X-XSS-Protection": "1; mode=block"
+
+			}
 		}).then(function(response) {
 			console.log(response);
 			var videos = response.items;
@@ -202,7 +206,7 @@ $(document).ready(function(){
 						"type": "text/html",
 						"width": 187,
 						// "height": 390,
-						"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1",
+						"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1&origin=www.github.com",
 						"frameborder": 0
 					});
 					target.append(video);
