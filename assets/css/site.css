@@ -1,0 +1,55 @@
+/*----------------*/
+/* General Styles */
+/*----------------*/
+
+body{
+	background-color: #ccc;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+
+/*---------------*/
+/* Nav Bar */
+/*---------------*/
+.navbar .form-control {
+	padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.nav-item .nav-link:hover {
+	animation: text_boom 750ms ease-out forwards;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+/*-------------*/
+/*--- Footer---*/
+/*-------------*/
+@import url('https://fonts.googleapis.com/css?family=Passion+One');
+footer {
+	position: fixed;
+	display: flex;
+	justify-content: space-between;
+	bottom: 0;
+	left: 0;
+	padding: 5px 10px;
+	width: 100%;
+	background-color: #343a40;
+	border-top: .3125rem solid #ccc;
+	color: #666;
+	font-family: "Passion One", Arial, sans-serif;
+	z-index: 99;
+}
+
+footer .right {
+	font-size: 10px;
+	line-height: 2em;
+}

@@ -1,16 +1,16 @@
 @keyframes slide_fromBottom {
-	0%{	top: 120%;}
-	100%{top: 0;}
+	0%{	top: 10%;opacity: 0;}
+	100%{top: 0;opacity: 1;}
 }
 
 @keyframes slide_fromLeft {
-	0%{	left: -120%;}
-	100%{left: 0;}
+	0%{	left: -10%; opacity: 0;}
+	100%{left: 0; opacity: 1;}
 }
 
 @keyframes slide_fromRight {
-	0%{	right: -120%;}
-	100%{right: 0;}
+	0%{	right: -10%;opacity: 0;}
+	100%{right: 0;opacity: 1;}
 }
 
 @keyframes expand {
@@ -20,32 +20,43 @@
 
 @keyframes expand_fromLeft {
 	0% {
-		width: 33%;
+		width: 33%; 
 		left: 0;
+		height: initial;
 	}
 	100% {
-		width: 100%;
+		width: 100%; 
 		left: 0;
+		height: 70vh;
 	}
 }
 
 @keyframes expand_fromRight {
 	0% {
-		width: 33%;
+		width: 33%;	
 		right: 0;
+		height: initial;
 	}
 	100% {
 		width: 100%;
 		right: 0;
+		height: 70vh;
 	}
 }
 
 @keyframes expand_fromCenter {
 	0% {
-		width: 33%;
+		width: 33%;	
+		height: initial;
 	}
 	100% {
 		width: 100%;
 		left: 0;
+		height: 70vh;
 	}
+}
+
+@keyframes text_boom {
+	50% {text-shadow: 0 0 5px #fff;}
+	100% {text-shadow: 0 0 20px #fff;}
 }

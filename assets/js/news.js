@@ -66,10 +66,19 @@ $(document).ready(function(){
 	// Youtube Endpoint & Ajax Call
 	// ------------------------------
 	
-	var youtube = "https://www.youtube.com/embed?listType=search&list=";
-	var sQuery = "cats";
-	youtube += sQuery;
-	console.log(youtube);
+	// var youtubeEndpoint = "https://www.googleapis.com/youtube/v3/search?";
+	// youtubeEndpoint += "q=cats";
+	// youtubeEndpoint += "&maxResults=25";
+	// youtubeEndpoint += "&part=snippet";
+	// youtubeEndpoint += "&key=AIzaSyAm23TJ9V0IroP_-LPZHlyRj1-P4UbkqHk";
+
+	// $.ajax({
+	// 	url: youtubeEndpoint,
+	// 	type: 'GET',
+	// }).then(function(response) {
+	// 	console.log(response);
+	// });
+	
 
 	// ------------------------------
 	// Updates the DOM with the returned list of Articles
@@ -122,14 +131,16 @@ $(document).ready(function(){
 		// Ensure the article entry has an image available to display.
 		if(article.urlToImage != null && article.urlToImage.startsWith("http")) {
 			card = $("<div class='card'>");
+			// card.attr('data-title', article.title);
 
+			// create a transparent overlay div that detects clicks on the card
 			const clickTrigger = $("<div class='click-trigger'>");
-
-			// Add click event listener
 			clickTrigger.on('click', function(event) {
 				event.preventDefault();
 				$(this).closest('.card').toggleClass('expanded');
 				$(".prevent-hover-effect").toggleClass('active');
+
+				getVideos(article.title, $(this).siblings('.article-content').children('.article-video'));
 			});
 
 			// Image tag and pull image source from article entry
@@ -137,8 +148,14 @@ $(document).ready(function(){
 				src: article.urlToImage,
 				alt: article.title
 			});
+
+			const card_body = $("<div class='article-content'>");
+
+			// ------------
+			// Article Text
+			// ------------
 			// Text overlay wrapper div
-			const card_body = $("<div class='card-body'>");
+			const card_body_text = $("<div class='card-body article-text'>");
 
 			// Article Title (brief description)
 			const card_body_h5 = $("<h5 class='card-title'>").text(article.title);
@@ -146,8 +163,13 @@ $(document).ready(function(){
 			// Article Source
 			const card_body_source = $("<p class='card-text'>").html("Source: <a href='"+ article.url +"' target='_blank'>" + article.source.name + "</a>");
 
-			// Article Full Description
+			// Article Description
 			const card_body_desc = $("<p class='card-text desc'>").text(article.description);
+
+			// ------------
+			// Related Videos
+			// ------------
+			const card_body_video = $("<div class='article-video'>");
 
 			const card_close = $("<div class='close-btn'>").text("X");
 
@@ -156,13 +178,60 @@ $(document).ready(function(){
 				event.preventDefault();
 				$(this).closest('.card').toggleClass('expanded');
 				$(".prevent-hover-effect").toggleClass('active');
+				$(this).siblings('.article-content').children('.article-video').empty();
 			});
 			// Add elements to each other and then to the DOM
-			card_body.append(card_body_h5,card_body_source,card_body_desc);
+			card_body_text.append(card_body_h5,card_body_source,card_body_desc);
+			card_body.append(card_body_text,card_body_video);
 			card.append(img,card_body,card_close,clickTrigger);
 
 		}
 		return card;
 	}
 
+	function getVideos(query, target){
+
+		var youtubeEndpoint = "https://www.googleapis.com/youtube/v3/search?";
+		youtubeEndpoint += "q=" + query;
+		youtubeEndpoint += "&maxResults=10";
+		youtubeEndpoint += "&part=snippet";
+		youtubeEndpoint += "&type=video";
+		youtubeEndpoint += "&videoEmbeddable=true";
+		youtubeEndpoint += "&key=AIzaSyAm23TJ9V0IroP_-LPZHlyRj1-P4UbkqHk";
+
+		$.ajax({
+			url: youtubeEndpoint,
+			type: 'GET',
+		}).then(function(response) {
+			console.log(response);
+			var videos = response.items;
+			if (videos.length > 0){
+				for (var i = 0; i < videos.length; i++) {
+					var vidID = videos[i].id.videoId;
+					var video = $("<iframe>");
+					video.attr({
+						"class": "video",
+						"type": "text/html",
+						"width": 187,
+						// "height": 390,
+						"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1&origin=https://motionswing.github.io",
+						"frameborder": 0
+					});
+					target.append(video);
+				}
+
+				// 
+				target.slick({
+					infinite: true,
+					slidesToShow: 3,
+					slidesToScroll: 3
+				});	
+			}else {
+				var noResults = $("<div class='no-videos'>").text("No Videos Found");
+				target.append(noResults);
+			}
+			
+		});
+
+	};
 });
