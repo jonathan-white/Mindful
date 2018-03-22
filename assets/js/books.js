@@ -91,7 +91,7 @@ $(document).ready(function(){
 				'background-image': 'linear-gradient(to right, #000 0%, '+ randomColor +' 10%, '+ randomColor +' 90%, #000 100%)',
 				'color': accentColors[Math.floor(Math.random()*accentColors.length)]
 			});
-			var fontNum = Math.floor(Math.random() * 6) + 1;
+			var fontNum = Math.floor(Math.random() * 20) + 1;
 			book.addClass('font-' + fontNum);
 
 			// document.documentElement.style.setProperty("--categoryTitle", 'rgb('+ Math.floMath.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
