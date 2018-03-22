@@ -11,8 +11,7 @@ $(document).ready(function(){
 	};
 	firebase.initializeApp(config);
 
-	// AIzaSyAFAoj1aZ2K1LHmep8tmA-UYcu747tq_ko   --- Google Search API
-
+	// Perform an initial search to return a default list of books
 	var bookQuery = "https://www.googleapis.com/books/v1/volumes?q=the+name+of+the+wind";
 	bookQuery += "&maxResults=40";
 
@@ -23,7 +22,6 @@ $(document).ready(function(){
 		console.log(response);
 		getBooks(response.items);
 	});
-
 
 	$("#search").change(function(event) {
 		event.preventDefault();
@@ -54,9 +52,11 @@ $(document).ready(function(){
 		$(".shelf-top, .shelf-bottom").empty();
 
 		var accentColors = ["#000","#fff","#f00","#00f"];
-		var numOfTiltedBooks = 3;
+		var numOfTiltedBooks = 7;
 		var booksWeCanTilt = [];
 		var tiltedBooks = [];
+		var combinedBooksWidth = 0;
+		var shelfWidth = $("#books-container").width() - 40;
 		
 		for (var i = 0; i < books.length; i++) {
 
@@ -91,12 +91,16 @@ $(document).ready(function(){
 				'background-image': 'linear-gradient(to right, #000 0%, '+ randomColor +' 10%, '+ randomColor +' 90%, #000 100%)',
 				'color': accentColors[Math.floor(Math.random()*accentColors.length)]
 			});
+			var fontNum = Math.floor(Math.random() * 6) + 1;
+			book.addClass('font-' + fontNum);
 
-			// document.documentElement.style.setProperty("--categoryTitle", 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
+			// document.documentElement.style.setProperty("--categoryTitle", 'rgb('+ Math.floMath.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			// document.documentElement.style.setProperty("--categoryBanner", 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			
 			var bookWrapper = $("<div class='book-wrapper'>").append(book);
-			bookWrapper.attr('id', 'bk_' + books[i].volumeInfo.industryIdentifiers[0].identifier);
+			if(books[i].volumeInfo.industryIdentifiers){
+				bookWrapper.attr('id', 'bk_' + books[i].volumeInfo.industryIdentifiers[0].identifier);
+			}
 
 			if(books[i].volumeInfo.categories && books[i].volumeInfo.categories[0].length > 18){
 				bookWrapper.addClass('x-2');
@@ -109,9 +113,12 @@ $(document).ready(function(){
 			}
 			
 			// Obtain the rendered width of the book (add to an array)
-			var bookEl = document.getElementById("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier);
-			var bookRect = bookEl.getBoundingClientRect();
-			console.log("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier + "- width:"+ bookRect.width);
+			if(books[i].volumeInfo.industryIdentifiers){
+				var bookEl = document.getElementById("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier);
+				var bookRect = bookEl.getBoundingClientRect();
+				console.log("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier + "- width:"+ bookRect.width);	
+				combinedBooksWidth += bookRect.width;
+			}
 
 			// TODO: adjust the number of books on each shelf based on the
 			// rendered width of all books on that shelf when the screen resizes
@@ -125,11 +132,14 @@ $(document).ready(function(){
 			}
 
 		}
-		console.log(booksWeCanTilt);
 
 		for (var i = 0; i < numOfTiltedBooks; i++) {
-			$("#"+booksWeCanTilt[Math.floor(Math.random() * booksWeCanTilt.length)].bookID).addClass('lean-' + Math.floor(Math.random() * 2));
+			var randomBook = Math.floor(Math.random() * booksWeCanTilt.length);
+			var randomTilt = Math.floor(Math.random() * (3 - 1)) + 1;
+			$("#"+booksWeCanTilt[randomBook].bookID).addClass('lean-' + randomTilt);
+			tiltedBooks.push(booksWeCanTilt[randomBook]);
 		}
+		console.log('Tilted books: ' + tiltedBooks);
 	};
 
 	$(window).resize(function(event) {

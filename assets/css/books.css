@@ -1,3 +1,10 @@
+/*@import url('https://fonts.googleapis.com/css?family=Indie+Flower');*/
+/*@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Brush+Script');
+@import url('https://fonts.googleapis.com/css?family=Fontdiner+Swanky%7CTangerine');
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
+@import url('https://fonts.googleapis.com/css?family=Frijole');*/
+
 /*----------------*/
 /* General Styles */
 /*----------------*/
@@ -71,12 +78,12 @@
     /*background: linear-gradient(to right, #000 0%, attr(data-banner-color) 10%, attr(data-banner-color) 90%, #000 100%);*/
     transform: rotate(180deg);
     writing-mode: horizontal-tb;
-    font-size: 8px;
+    font-size: 10px;
     text-align: center;
     line-height: 3;
 }
 
-.book::after {
+/*.book::after {
 	content: attr(data-title-length);
     position: absolute;
     left: 50%;
@@ -91,7 +98,7 @@
     font-size: 13px;
     padding: 4px;
     color: #000;
-}
+}*/
 
 /* Tilt/Lean/Stack books */
 .book-wrapper.lean-1 {
@@ -149,3 +156,14 @@
     border-radius: 2px;
     display: 
 }*/
+
+/* Book Fonts */
+/*@import url('https://fonts.googleapis.com/css?family=Indie+Flower%7CAmatic+SC%7CNanum+Brush+Script');
+@import url('https://fonts.googleapis.com/css?family=Fontdiner+Swanky%7CTangerine%7CFrijole');
+*/
+.font-1 {font-family: "Indie Flower", sans-serif;}
+.font-2 {font-family: "", sans-serif;}
+.font-3 {font-family: "Nanum Brush Script", sans-serif;}
+.font-4 {font-family: "Fontdiner Swanky", sans-serif;}
+.font-5 {font-family: "Tangerine", sans-serif;}
+.font-6 {font-family: "Frijole", sans-serif;}
