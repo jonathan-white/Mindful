@@ -188,6 +188,7 @@
 	box-shadow: 0 0 10px rgba(0,0,0,0.7);
 }
 
+/* Videos List */
 .card.expanded .article-video {
     position: absolute;
     top: 70%;

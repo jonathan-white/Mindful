@@ -97,7 +97,7 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="bookTitle">Book title <span class="bk-rating">[insert Rating]</span></h5>
+	        <h5 class="modal-title" id="bookTitle">Book title </h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -110,23 +110,22 @@
 			  		<img class="bk-cover-img" src="assets/images/placeholder.jpg" alt="cover image">
 			  	</div>
 			  	<div class="bk-details ml-1">
-				  	<h6 class="card-subtitle text-muted">Authors</h6>
+				  	<h6 class="card-subtitle text-success">Authors</h6>
 				    <p class="bk-authors">authors</p>
-				    
-				    <h6 class="card-subtitle text-muted">Date Published</h6>
+
+				    <h6 class="card-subtitle text-success">Date Published</h6>
 				    <p class="bk-datePublished">published</p>
-				    
-				    <h6 class="card-subtitle text-muted">Sold By</h6>
+
+				    <h6 class="card-subtitle text-success">Publisher</h6>
 				    <p class="bk-publisher">publisher</p>
-				    
-				    <h6 class="card-subtitle text-muted">Number of Pages</h6>
+
+				    <h6 class="card-subtitle text-success">Number of Pages</h6>
 				    <p class="bk-pgCount">pgCount</p>
-				    
-				    <h6 class="card-subtitle text-muted">Categories</h6>
+
+				    <h6 class="card-subtitle text-success">Categories</h6>
 				    <p class="bk-categories">categories</p>
-				    
-				    <a href="#" class="card-link">Card link</a>
-				    <a href="#" class="card-link">Another link</a>	
+
+				    <a href="#" class="card-link bk-excerpt" target="_blank">Read Excerpt</a>
 			  	</div>
 			  </div>
 			</div>
@@ -134,11 +133,16 @@
 			<!-- Right Card -->
 			<div class="card page-right col-6">
 			  <div class="card-body">
+			  	<h6 class="card-subtitle text-success">Summary</h6>
 			    <div class="bk-desc"></div>
 			  </div>
 			</div>
 	      </div>
+	      <div class="modal-body row">
+	      	<div class="bk-excerpt-holder"></div>
+	      </div>
 	      <div class="modal-footer">
+	      	<i id="bk-rating" class="a-icon a-icon-star a-star-4-5"></i>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 	      </div>
 	    </div>

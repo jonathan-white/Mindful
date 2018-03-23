@@ -49,6 +49,11 @@ $(document).ready(function(){
 		}
 	});
 
+	$(".bk-excerpt").on('click', function(event) {
+		// event.preventDefault();
+		$(".bk-excerpt-holder").slideToggle(400);
+	});
+
 	function getBooks(books){
 		$(".shelf-top, .shelf-bottom").empty();
 
@@ -151,10 +156,18 @@ $(document).ready(function(){
 
 				// Update the Modal form
 				var index = $(this).attr('data-index');
-				$("#bookTitle").text(bookCache[index].volumeInfo.title);
-				$(".bk-rating").text(bookCache[index].volumeInfo.averageRating + " (" + bookCache[index].volumeInfo.ratingsCount + ")");
-				$(".bk-authors").text(bookCache[index].volumeInfo.authors);
 
+				// Update the modal's header with the book's title
+				$("#bookTitle").text(bookCache[index].volumeInfo.title);
+
+				// Update the left side of the modal with the cover image and book details
+				if(bookCache[index].volumeInfo.imageLinks){
+					$(".bk-cover-img").attr('src', bookCache[index].volumeInfo.imageLinks.thumbnail);
+				}else {
+					$(".bk-cover-img").attr('src', 'assets/images/placeholder.jpg');
+				}
+				// $(".bk-rating").text(bookCache[index].volumeInfo.averageRating + " (" + bookCache[index].volumeInfo.ratingsCount + ")");
+				$(".bk-authors").text(bookCache[index].volumeInfo.authors);
 				var pubDate = new Date(bookCache[index].volumeInfo.publishedDate);
 				$(".bk-datePublished").text(pubDate.toLocaleDateString());
 				$(".bk-publisher").text(bookCache[index].volumeInfo.publisher);
@@ -163,15 +176,62 @@ $(document).ready(function(){
 					$(".bk-categories").text(bookCache[index].volumeInfo.categories);
 				}
 
-				if(bookCache[index].volumeInfo.imageLinks){
-					$(".bk-cover-img").attr('src', bookCache[index].volumeInfo.imageLinks.thumbnail);
-				}else {
-					$(".bk-cover-img").attr('src', 'assets/images/placeholder.jpg');
+				switch (bookCache[index].volumeInfo.averageRating) {
+					case 0:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-0');
+						break;
+					case 0.5:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-0-1');
+						break;
+					case 1:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-1');
+						break;
+					case 1.5:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-1-2');
+						break;
+					case 2:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-2');
+						break;
+					case 2.5:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-2-3');
+						break;
+					case 3:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-3');
+						break;
+					case 3.5:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-3-4');
+						break;
+					case 4:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-4');
+						break;
+					case 4.5:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-4-5');
+						break;
+					case 5:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-5');
+						break;
+					default:
+						$("#bk-rating").removeClass();
+						$("#bk-rating").addClass('a-icon a-icon-star a-star-0');
+						break;
 				}
 
+				// Update the right side of the modal with the book's description
 				$(".bk-desc").text(bookCache[index].volumeInfo.description);
 
-
+				// Add a link to an excerpt of the book
+				$(".bk-excerpt").attr('href', 'https://play.google.com/books/reader?id='+ bookCache[index].id +'&printsec=frontcover&output=reader&hl=en');
 			});
 			
 			// TODO: Move this If statement somewhere else
@@ -205,10 +265,7 @@ $(document).ready(function(){
 		console.log('Tilted books: ' + JSON.stringify(tiltedBooks));
 	};
 
-	$(window).resize(function(event) {
-		// Available width within the bookshelf
-		console.log($("#books-container").width() - 40);
-	});
+
 
 });
 

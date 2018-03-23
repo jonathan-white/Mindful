@@ -207,7 +207,8 @@ $(document).ready(function(){
 							"width": 187,
 							// "height": 390,
 							"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1",
-							"frameborder": 0
+							"frameborder": 0,
+							"allowfullscreen": true
 						});
 						target.append(video);
 					}
@@ -226,4 +227,5 @@ $(document).ready(function(){
 			});	
 		}
 	};
+
 });

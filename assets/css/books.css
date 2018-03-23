@@ -188,6 +188,11 @@
     padding: 0 1rem;
 }
 
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
 .page-left,
 .page-right {
     padding: 0;
@@ -197,6 +202,10 @@
 .page-right .card-body {
     display: flex;
     position: relative;
+}
+
+.page-right .card-body {
+    flex-flow: column;
 }
 
 .bk-cover,
@@ -211,4 +220,76 @@
 .bk-desc {
     overflow-y: scroll;
     max-height: 300px;
+}
+
+/* Book Excerpt */
+.bk-excerpt-holder {
+    height: 300px;
+    width: 100%;
+    display: none;
+}
+
+/* Ratings */
+.a-icon, .a-link-emphasis:after {
+    background-image: url(../images/amazon-sprite.png);
+    -webkit-background-size: 400px 900px;
+    background-size: 400px 900px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: top;
+    filter: grayscale(100%);
+}
+
+.a-icon-star, .a-icon-star-medium, .a-icon-star-mini, .a-icon-star-small {
+    position: relative;
+    vertical-align: text-top;
+}
+
+.a-icon-star {
+    width: 80px;
+    height: 18px;
+}
+
+.a-star-0 {
+    background-position: -255px -368px;
+}
+
+.a-star-0-1 {
+    background-position: -239px -368px;
+}
+
+.a-star-1 {
+    background-position: -69px -368px;
+}
+
+.a-star-1-2 {
+    background-position: -223px -368px;
+}
+
+.a-star-2 {
+    background-position: -53px -368px;
+}
+
+.a-star-2-3 {
+    background-position: -207px -368px;
+}
+
+.a-star-3 {
+    background-position: -37px -368px;
+}
+
+.a-star-3-4 {
+    background-position: -191px -368px;
+}
+
+.a-star-4 {
+    background-position: -21px -368px;
+}
+
+.a-star-4-5 {
+    background-position: -175px -368px;
+}
+
+.a-star-5 {
+    background-position: -5px -368px;
 }
