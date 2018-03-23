@@ -11,7 +11,12 @@ $(document).ready(function(){
 	};
 	firebase.initializeApp(config);
 
+	var database = firebase.database();
+
 	var bookCache = {};
+	var index = null;
+	var userRating = null;
+	var newRating = null;
 
 	// Perform an initial search to return a default list of books
 	var bookQuery = "https://www.googleapis.com/books/v1/volumes?q=the+name+of+the+wind";
@@ -49,10 +54,53 @@ $(document).ready(function(){
 		}
 	});
 
+	// Expand the Hidden section below the book details and summary
 	$(".bk-excerpt").on('click', function(event) {
 		// event.preventDefault();
 		$(".bk-excerpt-holder").slideToggle(400);
 	});
+
+	// On mouse hover, visually adjust the rating
+	$(".bk-rating").hover(function() {
+		var el = document.getElementsByClassName('bk-rating')[0];
+		var maxRating = el.getBoundingClientRect().right - el.getBoundingClientRect().left;
+		var userRating = event.clientX - el.getBoundingClientRect().left;
+		newRating = Math.ceil((userRating / maxRating) * 5);
+		displayRating(newRating);
+
+		$(this).addClass('user-rating');
+	}, function() {
+		$(this).removeClass('user-rating');
+		displayRating(userRating || bookCache[index].volumeInfo.averageRating);
+	});
+
+// Log the user in anonymously
+firebase.auth().signInAnonymously();
+
+// Only update the database if the user is logged in
+firebase.auth().onAuthStateChanged(function(user) {
+	if (user) {
+		// User is signed in.
+		var isAnonymous = user.isAnonymous;
+		var uid = user.uid;
+
+		$(".bk-rating").on('click', function(event) {
+			// Update firebase with the user's new rating for this book.
+			// 
+			// TODO: this currently sets the rating of the displayed book to the
+			// user's selected value, however, once the book is closed and
+			// a new book (or the same book) is opened, it still pulls the 
+			// default value.
+			userRating = newRating;
+			
+			database.ref().push({
+				userID: 1,
+				bookID: 'someID',
+				rating: userRating
+			});
+		});
+	}
+});
 
 	function getBooks(books){
 		$(".shelf-top, .shelf-bottom").empty();
@@ -155,7 +203,7 @@ $(document).ready(function(){
 				console.log("Color: " + $(this).css("color"));
 
 				// Update the Modal form
-				var index = $(this).attr('data-index');
+				index = $(this).attr('data-index');
 
 				// Update the modal's header with the book's title
 				$("#bookTitle").text(bookCache[index].volumeInfo.title);
@@ -176,56 +224,8 @@ $(document).ready(function(){
 					$(".bk-categories").text(bookCache[index].volumeInfo.categories);
 				}
 
-				switch (bookCache[index].volumeInfo.averageRating) {
-					case 0:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-0');
-						break;
-					case 0.5:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-0-1');
-						break;
-					case 1:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-1');
-						break;
-					case 1.5:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-1-2');
-						break;
-					case 2:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-2');
-						break;
-					case 2.5:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-2-3');
-						break;
-					case 3:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-3');
-						break;
-					case 3.5:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-3-4');
-						break;
-					case 4:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-4');
-						break;
-					case 4.5:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-4-5');
-						break;
-					case 5:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-5');
-						break;
-					default:
-						$("#bk-rating").removeClass();
-						$("#bk-rating").addClass('a-icon a-icon-star a-star-0');
-						break;
-				}
+				displayRating(bookCache[index].volumeInfo.averageRating);
+				$(".bk-rating").attr('title', bookCache[index].volumeInfo.averageRating + ' out of 5 stars');
 
 				// Update the right side of the modal with the book's description
 				$(".bk-desc").text(bookCache[index].volumeInfo.description);
@@ -256,15 +256,60 @@ $(document).ready(function(){
 
 		}
 
+		// Tilts a defined number of books
 		for (var i = 0; i < numOfTiltedBooks; i++) {
 			var randomBook = Math.floor(Math.random() * booksWeCanTilt.length);
 			var randomTilt = Math.floor(Math.random() * (3 - 1)) + 1;
-			$("#"+booksWeCanTilt[randomBook].bookID).addClass('lean-' + randomTilt);
+			$("#"+booksWeCanTilt[randomBook].bookID).addClass('tilt-' + randomTilt);
 			tiltedBooks.push(booksWeCanTilt[randomBook]);
 		}
 		console.log('Tilted books: ' + JSON.stringify(tiltedBooks));
 	};
 
+	// Updates the 0-5 star rating in the DOM only
+	function displayRating(rating){
+		$(".bk-rating").removeClass("a-star-0 a-star-0-1 a-star-1 a-star-1-2 " + 
+					"a-star-2 a-star-2-3 a-star-3 a-star-3-4 a-star-4 a-star-4-5 a-star-5");
+
+		switch (rating) {
+			case 0:
+				$(".bk-rating").addClass('a-star-0');
+				break;
+			case 0.5:
+				$(".bk-rating").addClass('a-star-0-1');
+				break;
+			case 1:
+				$(".bk-rating").addClass('a-star-1');
+				break;
+			case 1.5:
+				$(".bk-rating").addClass('a-star-1-2');
+				break;
+			case 2:
+				$(".bk-rating").addClass('a-star-2');
+				break;
+			case 2.5:
+				$(".bk-rating").addClass('a-star-2-3');
+				break;
+			case 3:
+				$(".bk-rating").addClass('a-star-3');
+				break;
+			case 3.5:
+				$(".bk-rating").addClass('a-star-3-4');
+				break;
+			case 4:
+				$(".bk-rating").addClass('a-star-4');
+				break;
+			case 4.5:
+				$(".bk-rating").addClass('a-star-4-5');
+				break;
+			case 5:
+				$(".bk-rating").addClass('a-star-5');
+				break;
+			default:
+				$(".bk-rating").addClass('a-star-0');
+				break;
+		}
+	}
 
 
 });

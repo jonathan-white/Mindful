@@ -102,21 +102,21 @@
     color: #000;
 }*/
 
-/* Tilt/Lean/Stack books */
-.book-wrapper.lean-1 {
+/* Tilt/Stack books */
+.book-wrapper.tilt-1 {
 	width: 6%;
     left: 14px;
     margin-right: 20px;
 }
-.book-wrapper.lean-1 .book {
+.book-wrapper.tilt-1 .book {
 	transform: rotate(190deg);
 }
 
-.book-wrapper.lean-2 {
+.book-wrapper.tilt-2 {
     width: 8%;
     left: 22px;
 }
-.book-wrapper.lean-2 .book {
+.book-wrapper.tilt-2 .book {
 	transform: rotate(165deg);
 }
 
@@ -146,21 +146,9 @@
 	cursor: pointer;
 }
 
-/* After Opening a Book */
-
-/*.book-open {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 65%;
-    height: 75%;
-    background-color: pink;
-    border-radius: 2px;
-    display: 
-}*/
-
-/* Book Fonts */
+/*------------------*/
+/*--- Book Fonts ---*/
+/*------------------*/
 .font-1 {font-family: "Indie Flower", sans-serif;}
 .font-2 {font-family: "Nanum Brush Script", sans-serif;}
 .font-3 {font-family: "Fontdiner Swanky", sans-serif;}
@@ -182,8 +170,9 @@
 .font-19 {font-family: "Henny Penny", sans-serif;}
 .font-20 {font-family: "Nothing You Could Do", sans-serif;}
 
-/* Modal Styles */
-
+/*--------------------*/
+/*--- Modal Styles ---*/
+/*--------------------*/
 .modal-body {
     padding: 0 1rem;
 }
@@ -204,10 +193,7 @@
     position: relative;
 }
 
-.page-right .card-body {
-    flex-flow: column;
-}
-
+/*Left Side*/
 .bk-cover,
 .bk-details {
     width: 50%;
@@ -215,6 +201,11 @@
 
 .bk-cover-img {
     width: 100%;
+}
+
+/* Right Side */
+.page-right .card-body {
+    flex-flow: column;
 }
 
 .bk-desc {
@@ -240,6 +231,10 @@
     filter: grayscale(100%);
 }
 
+.user-rating {
+    filter: unset;
+}
+
 .a-icon-star, .a-icon-star-medium, .a-icon-star-mini, .a-icon-star-small {
     position: relative;
     vertical-align: text-top;
@@ -250,46 +245,14 @@
     height: 18px;
 }
 
-.a-star-0 {
-    background-position: -255px -368px;
-}
-
-.a-star-0-1 {
-    background-position: -239px -368px;
-}
-
-.a-star-1 {
-    background-position: -69px -368px;
-}
-
-.a-star-1-2 {
-    background-position: -223px -368px;
-}
-
-.a-star-2 {
-    background-position: -53px -368px;
-}
-
-.a-star-2-3 {
-    background-position: -207px -368px;
-}
-
-.a-star-3 {
-    background-position: -37px -368px;
-}
-
-.a-star-3-4 {
-    background-position: -191px -368px;
-}
-
-.a-star-4 {
-    background-position: -21px -368px;
-}
-
-.a-star-4-5 {
-    background-position: -175px -368px;
-}
-
-.a-star-5 {
-    background-position: -5px -368px;
-}
+.a-star-0 {background-position: -255px -368px;}
+.a-star-0-1 {background-position: -239px -368px;}
+.a-star-1 {background-position: -69px -368px;}
+.a-star-1-2 {background-position: -223px -368px;}
+.a-star-2 {background-position: -53px -368px;}
+.a-star-2-3 {background-position: -207px -368px;}
+.a-star-3 {background-position: -37px -368px;}
+.a-star-3-4 {background-position: -191px -368px;}
+.a-star-4 {background-position: -21px -368px;}
+.a-star-4-5 {background-position: -175px -368px;}
+.a-star-5 {background-position: -5px -368px;}
