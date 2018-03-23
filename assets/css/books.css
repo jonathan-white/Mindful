@@ -50,29 +50,30 @@
 
 .book {
 	position: relative;
-	writing-mode: vertical-lr;
-	font-size: 20px;
-	border: 1px solid #856404;
+	writing-mode: vertical-rl;
     padding: 6px 6px 40px;
+    border: 1px solid #856404;
     background-color: var(--brown);
     background: linear-gradient(to right, #000 0%, var(--brown) 10%, var(--brown) 90%, #000 100%);
     color: #fff;
+    font-size: 20px;
+    font-weight: 600;
     border-radius: 2px;
     margin: 1px 4px;
-    user-select: none;
-    font-weight: 600;
-    transform: rotate(180deg);
-    text-align: right;
+    text-align: center;
     text-shadow: 0 0 5px #000, 0 0 2px #fff;
+    transform: rotate(180deg);
+    user-select: none;
 }
 
 .book::before {
     content: attr(data-author);
     position: absolute;
+    padding: 0px;
     bottom: 10px;
     left: 0;
     width: 100%;
-    height: 25px;
+    height: 20px;
     color: var(--categoryTitle);
     background-color: var(--categoryBanner);
     /*background: linear-gradient(to right, #000 0%, attr(data-banner-color) 10%, attr(data-banner-color) 90%, #000 100%);*/
@@ -80,7 +81,8 @@
     writing-mode: horizontal-tb;
     font-size: 10px;
     text-align: center;
-    line-height: 3;
+    line-height: 2;
+    font-family: sans-serif;
 }
 
 /*.book::after {
@@ -104,6 +106,7 @@
 .book-wrapper.lean-1 {
 	width: 6%;
     left: 14px;
+    margin-right: 20px;
 }
 .book-wrapper.lean-1 .book {
 	transform: rotate(190deg);
@@ -158,29 +161,43 @@
 }*/
 
 /* Book Fonts */
-/*@import url('https://fonts.googleapis.com/css?family=Indie+Flower%7CAmatic+SC%7CNanum+Brush+Script');
-@import url('https://fonts.googleapis.com/css?family=Fontdiner+Swanky%7CTangerine%7CFrijole');
-*/
 .font-1 {font-family: "Indie Flower", sans-serif;}
-.font-2 {font-family: "UnifrakturMagunti", sans-serif;}
-.font-3 {font-family: "Nanum Brush Script", sans-serif;}
-.font-4 {font-family: "Fontdiner Swanky", sans-serif;}
-.font-5 {font-family: "Tangerine", sans-serif;}
-.font-6 {font-family: "Frijole", sans-serif;}
-.font-7 {font-family: "Annie Use Your Telescope", sans-serif;}
-.font-8 {font-family: "Bungee Shade", sans-serif;}
-.font-9 {font-family: "Creepster", sans-serif;}
-.font-10 {font-family: "Give You Glory", sans-serif;}
-.font-11 {font-family: "Montez", sans-serif;}
-.font-12 {font-family: "Rock Salt", sans-serif;}
-.font-13 {font-family: "Princess Sofia", sans-serif;}
-.font-14 {font-family: "Ruthie", sans-serif;}
-.font-15 {font-family: "Walter Turncoat", sans-serif;}
-.font-16 {font-family: "Nosifer", sans-serif;}
-.font-17 {font-family: "Monofett", sans-serif;}
-.font-18 {font-family: "Great Vibes", sans-serif;}
+.font-2 {font-family: "Nanum Brush Script", sans-serif;}
+.font-3 {font-family: "Fontdiner Swanky", sans-serif;}
+.font-4 {font-family: "Tangerine", sans-serif;}
+.font-5 {font-family: "Frijole", sans-serif;}
+.font-6 {font-family: "Bungee Shade", sans-serif;}
+.font-7 {font-family: "UnifrakturMaguntia", cursive;}
+.font-8 {font-family: "Ewert", sans-serif;}
+.font-9 {font-family: "Annie Use Your Telescope", sans-serif;} /* Pending */
+.font-10 {font-family: "Creepster", sans-serif;}
+.font-11 {font-family: "Give You Glory", sans-serif;}
+.font-12 {font-family: "Montez", sans-serif;}
+.font-13 {font-family: "Rock Salt", sans-serif;} 
+.font-14 {font-family: "Princess Sofia", sans-serif;}
+.font-15 {font-family: "Ruthie", sans-serif;}  
+.font-16 {font-family: "Walter Turncoat", sans-serif;}
+.font-17 {font-family: "Gloria Hallelujah", cursive;}
+.font-18 {font-family: "Great Vibes", sans-serif;} 
 .font-19 {font-family: "Henny Penny", sans-serif;}
 .font-20 {font-family: "Nothing You Could Do", sans-serif;}
 
+/* Modal Styles */
 
+.modal-body {
+    padding: 0 1rem;
+}
 
+.page-left,
+.page-right {
+    padding: 0;
+}
+
+.page-left .card-body,
+.page-right .card-body {
+    display: flex;
+}
+
+.bk-cover-img {
+    /*width: 100px;*/
+}

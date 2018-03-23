@@ -38,27 +38,29 @@ $(document).ready(function(){
 
 	$("#search").change(function(event) {
 		event.preventDefault();
+		// User Input Validation
 		var query = $(this).val().trim();
+		if(query.length > 0){
+			// Display 30 search results sorted by popularity
+			var endpoint = 'https://newsapi.org/v2/everything?';
+			endpoint += 'q=' + encodeURIComponent(query);
+			endpoint += '&apiKey=e95105e255ab4ca5b069b303112caa05';
+			endpoint += '&language=en';
+			endpoint += '&sortBy=popularity';
+			endpoint += '&pageSize=30';
+			// endpoint += '&sources=abc-news,cbs-news,bloomberg,cnbc,cnn,entertainment-weekly,fox-news,espn,fortune,google-news,nbc-news,mtv-news,reuters,usa-today,the-washington-post,the-wall-street-journal'
 
-		// Display 30 search results sorted by popularity
-		var endpoint = 'https://newsapi.org/v2/everything?';
-		endpoint += 'q=' + encodeURIComponent(query);
-		endpoint += '&apiKey=e95105e255ab4ca5b069b303112caa05';
-		endpoint += '&language=en';
-		endpoint += '&sortBy=popularity';
-		endpoint += '&pageSize=30';
-		// endpoint += '&sources=abc-news,cbs-news,bloomberg,cnbc,cnn,entertainment-weekly,fox-news,espn,fortune,google-news,nbc-news,mtv-news,reuters,usa-today,the-washington-post,the-wall-street-journal'
+			$.ajax({
+				url: endpoint,
+				type: 'GET'
+			}).then(function(response) {
+				console.log(response);
 
-		$.ajax({
-			url: endpoint,
-			type: 'GET'
-		}).then(function(response) {
-			console.log(response);
-
-			addArticlesToDOM(response);
-		}).catch(function(){
-			// Error handling
-		});
+				addArticlesToDOM(response);
+			}).catch(function(){
+				// Error handling
+			});			
+		}
 	});
 
 	// ------------------------------
@@ -89,7 +91,7 @@ $(document).ready(function(){
 				}	
 			}
 		}
-
+		// Lazy Loading of images
 		// for (var i = 0; i < articles.length; i++) {
 		// 	var img = $("<img src='blank.gif'>");
 		// 	img.attr({
@@ -179,46 +181,49 @@ $(document).ready(function(){
 	// Gets a list of youtube videos based on the 'query'
 	// and appends them to the 'target' element
 	function getVideos(query, target){
-		var youtubeEndpoint = "https://www.googleapis.com/youtube/v3/search?";
-		youtubeEndpoint += "q=" + encodeURIComponent(query);
-		youtubeEndpoint += "&maxResults=10";
-		youtubeEndpoint += "&part=snippet";
-		youtubeEndpoint += "&type=video";
-		youtubeEndpoint += "&videoEmbeddable=true";
-		youtubeEndpoint += "&key=AIzaSyAm23TJ9V0IroP_-LPZHlyRj1-P4UbkqHk";
+		// User Input Validation
+		if(query.length > 0){
+			var youtubeEndpoint = "https://www.googleapis.com/youtube/v3/search?";
+			youtubeEndpoint += "q=" + encodeURIComponent(query);
+			youtubeEndpoint += "&maxResults=10";
+			youtubeEndpoint += "&part=snippet";
+			youtubeEndpoint += "&type=video";
+			youtubeEndpoint += "&videoEmbeddable=true";
+			youtubeEndpoint += "&key=AIzaSyAm23TJ9V0IroP_-LPZHlyRj1-P4UbkqHk";
 
-		$.ajax({
-			url: youtubeEndpoint,
-			type: 'GET'
-		}).then(function(response) {
-			console.log(response);
-			var videos = response.items;
-			if (videos.length > 0){
-				for (var i = 0; i < videos.length; i++) {
-					const vidID = videos[i].id.videoId;
-					const video = $("<iframe>");
-					video.attr({
-						"class": "video",
-						"type": "text/html",
-						"width": 187,
-						// "height": 390,
-						"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1",
-						"frameborder": 0
-					});
-					target.append(video);
+			$.ajax({
+				url: youtubeEndpoint,
+				type: 'GET'
+			}).then(function(response) {
+				console.log(response);
+				var videos = response.items;
+				if (videos.length > 0){
+					for (var i = 0; i < videos.length; i++) {
+						const vidID = videos[i].id.videoId;
+						const video = $("<iframe>");
+						video.attr({
+							"class": "video",
+							"type": "text/html",
+							"width": 187,
+							// "height": 390,
+							"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1",
+							"frameborder": 0
+						});
+						target.append(video);
+					}
+
+					// Creates the Slick carousel inside the target element
+					target.slick({
+						infinite: true,
+						slidesToShow: 3,
+						slidesToScroll: 3
+					});	
+				}else {
+					// If no videos are found update the DOM to notify the end user
+					var noResults = $("<div class='no-videos'>").text("No Videos Found");
+					target.append(noResults);
 				}
-
-				// Creates the slick carousel inside the target element
-				target.slick({
-					infinite: true,
-					slidesToShow: 3,
-					slidesToScroll: 3
-				});	
-			}else {
-				// If no videos are found update the DOM to notify the end user
-				var noResults = $("<div class='no-videos'>").text("No Videos Found");
-				target.append(noResults);
-			}
-		});
+			});	
+		}
 	};
 });

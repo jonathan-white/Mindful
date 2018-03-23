@@ -11,6 +11,8 @@ $(document).ready(function(){
 	};
 	firebase.initializeApp(config);
 
+	var bookCache = {};
+
 	// Perform an initial search to return a default list of books
 	var bookQuery = "https://www.googleapis.com/books/v1/volumes?q=the+name+of+the+wind";
 	bookQuery += "&maxResults=40";
@@ -20,33 +22,32 @@ $(document).ready(function(){
 		type: 'GET'
 	}).then(function(response) {
 		console.log(response);
+		bookCache = response.items;
 		getBooks(response.items);
 	});
 
+	// Perform another ajax call based on the search results
 	$("#search").change(function(event) {
 		event.preventDefault();
+		// User Input Validation
 		var query = $(this).val().trim();
+		if (query.length > 0) {
+			var bookQuery = "https://www.googleapis.com/books/v1/volumes?";
+			bookQuery += "q=" + encodeURIComponent(query);
+			bookQuery += "&maxResults=40";
 
-		var bookQuery = "https://www.googleapis.com/books/v1/volumes?";
-		bookQuery += "q=" + encodeURIComponent(query);
-		bookQuery += "&maxResults=40";
+			$.ajax({
+				url: bookQuery,
+				type: 'GET'
+			}).then(function(response) {
+				console.log(response);
 
-		$.ajax({
-			url: bookQuery,
-			type: 'GET'
-		}).then(function(response) {
-			console.log(response);
-
-			getBooks(response.items);
-		}).catch(function(){
-			// Error handling
-		});
+				getBooks(response.items);
+			}).catch(function(){
+				// Error handling
+			});			
+		}
 	});
-
-	// $("#search").bind('input', function(){
-	// 	console.log($(this).val());
-	// });
-
 
 	function getBooks(books){
 		$(".shelf-top, .shelf-bottom").empty();
@@ -60,10 +61,17 @@ $(document).ready(function(){
 		
 		for (var i = 0; i < books.length; i++) {
 
+			// Create book div
 			var book = $("<div class='book'>").text(books[i].volumeInfo.title);
 			
+			// Get the length of the title & store in data attribute
 			var title_length = books[i].volumeInfo.title.length;
-			book.attr('data-title-length', books[i].volumeInfo.title.length);
+			book.attr({
+				'data-title-length': title_length,
+				'title': books[i].volumeInfo.title,
+				'data-index': i
+			});
+
 			// Adjust the height of the book based on the length of the title
 			if(title_length > 30 && title_length < 39){
 				book.css('fontSize', '1rem');
@@ -71,28 +79,50 @@ $(document).ready(function(){
 				book.css('fontSize', '.875rem');
 			}
 
+			// If ISBN number exists, add a data value for reference
+			if(books[i].volumeInfo.industryIdentifiers) {
+				book.attr("data-isbn", books[i].volumeInfo.industryIdentifiers[0].identifier);
+			}
 
-			if (books[i].volumeInfo.authors && books[i].volumeInfo.categories) {
+			// If a set of authors exist, add a data value for reference
+			if (books[i].volumeInfo.authors) {
 				var author = books[i].volumeInfo.authors[0] || [];
 				var author_lastName = author.split(' ');
 
 				book.attr({
-					"data-isbn": books[i].volumeInfo.industryIdentifiers[0].identifier,
-					"data-category": books[i].volumeInfo.categories[0] || 'none',
-					"data-author": author_lastName[author_lastName.length-1],
+					"data-author": author_lastName[author_lastName.length-1] || '',
 					"data-banner-color": "#000"
 				});
 			}else {
 				book.attr('data-banner-color', 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			}
 
+			// If a set of categories exist, add a data value for reference
+			if(books[i].volumeInfo.categories) {
+				book.attr("data-category", books[i].volumeInfo.categories[0]);
+			}
+
+			// Set the book's background color to a random color
+			// Set the title's text to a random accent color using accentColors array
 			var randomColor = 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')';
 			book.css({
 				'background-image': 'linear-gradient(to right, #000 0%, '+ randomColor +' 10%, '+ randomColor +' 90%, #000 100%)',
 				'color': accentColors[Math.floor(Math.random()*accentColors.length)]
 			});
+
+			// Update the bgColor data value to the background color for easy reference
+			book.attr('data-bgColor', randomColor);
+
+			// Assign a random font to the book's title
 			var fontNum = Math.floor(Math.random() * 20) + 1;
 			book.addClass('font-' + fontNum);
+
+			// Allow book to trigger modal form
+			book.addClass('modal-launch');
+			book.attr({
+				'data-toggle': 'modal',
+				'data-target': '#bookModal'
+			});
 
 			// document.documentElement.style.setProperty("--categoryTitle", 'rgb('+ Math.floMath.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			// document.documentElement.style.setProperty("--categoryBanner", 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
@@ -111,12 +141,34 @@ $(document).ready(function(){
 			}else {
 				$(".shelf-bottom").append(bookWrapper);	
 			}
+
+			// TODO: Update Modal form with details from Book API
+			book.on('click', function(event) {
+				event.preventDefault();
+				console.log("--------------");
+				console.log("Background Color: " + $(this).attr("data-bgColor"));
+				console.log("Color: " + $(this).css("color"));
+
+				// Update the Modal form
+				var index = $(this).attr('data-index');
+				$("#bookTitle").text(bookCache[index].volumeInfo.title);
+				$(".bk-rating").text(bookCache[index].volumeInfo.averageRating + " (" + bookCache[index].volumeInfo.ratingsCount + ")");
+
+				if(bookCache[index].volumeInfo.imageLinks){
+					$(".bk-cover-img").attr('src', bookCache[index].volumeInfo.imageLinks.thumbnail);
+				}
+
+				$(".bk-desc").text(bookCache[index].volumeInfo.description);
+
+
+			});
 			
+			// TODO: Move this If statement somewhere else
 			// Obtain the rendered width of the book (add to an array)
 			if(books[i].volumeInfo.industryIdentifiers){
 				var bookEl = document.getElementById("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier);
 				var bookRect = bookEl.getBoundingClientRect();
-				console.log("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier + "- width:"+ bookRect.width);	
+				// console.log("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier + "- width:"+ bookRect.width);	
 				combinedBooksWidth += bookRect.width;
 			}
 
@@ -139,7 +191,7 @@ $(document).ready(function(){
 			$("#"+booksWeCanTilt[randomBook].bookID).addClass('lean-' + randomTilt);
 			tiltedBooks.push(booksWeCanTilt[randomBook]);
 		}
-		console.log('Tilted books: ' + tiltedBooks);
+		console.log('Tilted books: ' + JSON.stringify(tiltedBooks));
 	};
 
 	$(window).resize(function(event) {

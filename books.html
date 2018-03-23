@@ -13,28 +13,25 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Frijole">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bungee+Shade">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nosifer">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=UnifrakturMaguntia">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ewert">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Faster+One">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light">
 	<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montez" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Give+You+Glory" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Montez" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Seaweed+Script" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Walter+Turncoat" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Creepster" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Princess+Sofia" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat+Subrayada" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Swanky+and+Moo+Moo" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Henny+Penny" rel="stylesheet">
-
-
+	<link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ruthie" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah">
+	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light"> -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Seaweed+Script" rel="stylesheet"> -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat+Subrayada" rel="stylesheet"> -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Swanky+and+Moo+Moo" rel="stylesheet"> -->
 
 	<!-- Custom Stylesheets -->
 	<link rel="stylesheet" href="assets/css/site.css">
@@ -91,26 +88,46 @@
 		in the modal
 	 -->
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+	<button type="button" class="modal-launch btn btn-primary" data-toggle="modal" data-target="#bookModal">
 	  Launch demo modal
 	</button>
 
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookTitle" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	        <h5 class="modal-title" id="bookTitle">Book title <span class="bk-rating">[insert Rating]</span></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body">
-	        Body Text
+	      <div class="modal-body row">
+	      	<!-- Left Card -->
+			<div class="card page-left col-6">
+			  <div class="card-body">
+			  	<div class="bk-cover">
+			  		<img class="bk-cover-img" src="assets/images/placeholder.jpg" alt="cover image">
+			  	</div>
+			  	<div class="bk-details">
+				  	<h4 class="card-title">Card title</h5>
+				    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				    <a href="#" class="card-link">Card link</a>
+				    <a href="#" class="card-link">Another link</a>	
+			  	</div>
+			  </div>
+			</div>
+
+			<!-- Right Card -->
+			<div class="card page-right col-6">
+			  <div class="card-body">
+			    <div class="bk-desc"></div>
+			  </div>
+			</div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
 	      </div>
 	    </div>
 	  </div>

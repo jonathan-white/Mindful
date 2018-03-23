@@ -79,12 +79,6 @@
 }
 
 /* Have text fly in from different sides, depending on the column */
-/*.img-col-1 .card:hover .article-text {animation: slide_fromLeft 1s ease forwards;}
-.img-col-2 .card:hover .article-text {animation: slide_fromTop 1s ease forwards;}
-.img-col-3 .card:hover .article-text {animation: slide_fromRight 1s ease forwards;}
-*/
-
-/* Have text fly in from different sides, depending on the column */
 .card:hover .article-text {animation: slide_fromTop 1s ease forwards;}
 .img-col-1 .card:hover .card-title,
 .img-col-1 .card:hover .card-text {animation: slide_fromLeft 1s 750ms ease forwards;}
@@ -144,6 +138,20 @@
 
 .card.expanded .card-img-top {
 	transform: none;
+}
+
+.img-col-1 .card.expanded .card-title, .img-col-1 .card.expanded .card-text,
+.img-col-2 .card.expanded .card-title, .img-col-2 .card.expanded .card-text,
+.img-col-3 .card.expanded .card-title, .img-col-3 .card.expanded .card-text {
+    opacity: 1;
+    animation: none;
+}
+
+.img-col-1 .card.expanded:hover .card-title,.img-col-1 .card.expanded:hover .card-text, 
+.img-col-2 .card.expanded:hover .card-title,.img-col-2 .card.expanded:hover .card-text,
+.img-col-3 .card.expanded:hover .card-title,.img-col-3 .card.expanded:hover .card-text {
+    animation: none;
+    opacity: 1;
 }
 
 .card.expanded .article-text,
