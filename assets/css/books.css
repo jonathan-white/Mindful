@@ -196,8 +196,19 @@
 .page-left .card-body,
 .page-right .card-body {
     display: flex;
+    position: relative;
+}
+
+.bk-cover,
+.bk-details {
+    width: 50%;
 }
 
 .bk-cover-img {
-    /*width: 100px;*/
+    width: 100%;
+}
+
+.bk-desc {
+    overflow-y: scroll;
+    max-height: 300px;
 }

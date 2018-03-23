@@ -41,7 +41,7 @@ $(document).ready(function(){
 				type: 'GET'
 			}).then(function(response) {
 				console.log(response);
-
+				bookCache = response.items;
 				getBooks(response.items);
 			}).catch(function(){
 				// Error handling
@@ -153,9 +153,20 @@ $(document).ready(function(){
 				var index = $(this).attr('data-index');
 				$("#bookTitle").text(bookCache[index].volumeInfo.title);
 				$(".bk-rating").text(bookCache[index].volumeInfo.averageRating + " (" + bookCache[index].volumeInfo.ratingsCount + ")");
+				$(".bk-authors").text(bookCache[index].volumeInfo.authors);
+
+				var pubDate = new Date(bookCache[index].volumeInfo.publishedDate);
+				$(".bk-datePublished").text(pubDate.toLocaleDateString());
+				$(".bk-publisher").text(bookCache[index].volumeInfo.publisher);
+				$(".bk-pgCount").text(bookCache[index].volumeInfo.pageCount);
+				if(bookCache[index].volumeInfo.categories){
+					$(".bk-categories").text(bookCache[index].volumeInfo.categories);
+				}
 
 				if(bookCache[index].volumeInfo.imageLinks){
 					$(".bk-cover-img").attr('src', bookCache[index].volumeInfo.imageLinks.thumbnail);
+				}else {
+					$(".bk-cover-img").attr('src', 'assets/images/placeholder.jpg');
 				}
 
 				$(".bk-desc").text(bookCache[index].volumeInfo.description);
