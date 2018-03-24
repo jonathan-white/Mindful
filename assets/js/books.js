@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	// Initialize Firebase
 	var config = {
-		apiKey: "AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0",
+		apiKey: "AIzaSyByyxxxJ0lZ_anb0-1G1vTxQKfKjbrSlyU",
 		authDomain: "mindful-87015.firebaseapp.com",
 		databaseURL: "https://mindful-87015.firebaseio.com",
 		projectId: "mindful-87015",
@@ -15,8 +15,11 @@ $(document).ready(function(){
 
 	var bookCache = {};
 	var index = null;
-	var userRating = null;
 	var newRating = null;
+
+	// TODO: These should be stored exclusively in Firebase within the user's object
+	var userRating = null;
+	var hasUserSelectedRating = false;
 
 	// Perform an initial search to return a default list of books
 	var bookQuery = "https://www.googleapis.com/books/v1/volumes?q=the+name+of+the+wind";
@@ -24,7 +27,10 @@ $(document).ready(function(){
 
 	$.ajax({
 		url: bookQuery,
-		type: 'GET'
+		type: 'GET',
+		headers: {
+	   	'Access-Control-Allow-Origin' : '*'
+	   }
 	}).then(function(response) {
 		console.log(response);
 		bookCache = response.items;
@@ -70,41 +76,47 @@ $(document).ready(function(){
 
 		$(this).addClass('user-rating');
 	}, function() {
-		$(this).removeClass('user-rating');
-		displayRating(userRating || bookCache[index].volumeInfo.averageRating);
+		if (hasUserSelectedRating === false){
+			$(this).removeClass('user-rating');
+			displayRating(bookCache[index].volumeInfo.averageRating);
+		}else {
+			displayRating(newRating);
+		}
 	});
 
 // Log the user in anonymously
-firebase.auth().signInAnonymously();
+// firebase.auth().signInAnonymously();
 
 // Only update the database if the user is logged in
-firebase.auth().onAuthStateChanged(function(user) {
-	if (user) {
-		// User is signed in.
-		var isAnonymous = user.isAnonymous;
-		var uid = user.uid;
+// firebase.auth().onAuthStateChanged(function(user) {
+// 	if (user) {
+// 		// User is signed in.
+// 		var isAnonymous = user.isAnonymous;
+// 		var uid = user.uid;
 
 		$(".bk-rating").on('click', function(event) {
-			// Update firebase with the user's new rating for this book.
 			// 
 			// TODO: this currently sets the rating of the displayed book to the
 			// user's selected value, however, once the book is closed and
 			// a new book (or the same book) is opened, it still pulls the 
 			// default value.
 			userRating = newRating;
+			hasUserSelectedRating = true;
 			
-			database.ref().push({
-				userID: 1,
-				bookID: 'someID',
-				rating: userRating
-			});
+			// Update firebase with the user's new rating for this book.
+			// database.ref().push({
+			// 	userID: 1,
+			// 	bookID: JSON.stringify(bookCache[index]),
+			// 	rating: userRating
+			// });
 		});
-	}
-});
+// 	}
+// });
 
 	function getBooks(books){
-		$(".shelf-top, .shelf-bottom").empty();
+		$(".shelf").empty();
 
+		// Standard set of book title colors (black, white, red, blue) 
 		var accentColors = ["#000","#fff","#f00","#00f"];
 		var numOfTiltedBooks = 7;
 		var booksWeCanTilt = [];
@@ -144,8 +156,11 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 				book.attr({
 					"data-author": author_lastName[author_lastName.length-1] || '',
+					'data-author-length': author_lastName[author_lastName.length-1].length,
 					"data-banner-color": "#000"
 				});
+
+				book.css('width', 'calc('+ author_lastName[author_lastName.length-1].length +' * 6.67px)');
 			}else {
 				book.attr('data-banner-color', 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			}
@@ -180,24 +195,26 @@ firebase.auth().onAuthStateChanged(function(user) {
 			// document.documentElement.style.setProperty("--categoryTitle", 'rgb('+ Math.floMath.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			// document.documentElement.style.setProperty("--categoryBanner", 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			
+			// Setup the book wrapper and add the ID
 			var bookWrapper = $("<div class='book-wrapper'>").append(book);
-			if(books[i].volumeInfo.industryIdentifiers){
-				bookWrapper.attr('id', 'bk_' + books[i].volumeInfo.industryIdentifiers[0].identifier);
-			}
+			bookWrapper.attr('id', 'bk_' + books[i].id);
 
+			// Increase the width of the book if the title is greater than 18 characters
 			if(books[i].volumeInfo.categories && books[i].volumeInfo.categories[0].length > 18){
 				bookWrapper.addClass('x-2');
 			}
 
+			// Place books on shelf; split between top and bottom shelf
 			if(i < 20) {
 				$(".shelf-top").append(bookWrapper);	
 			}else {
 				$(".shelf-bottom").append(bookWrapper);	
 			}
 
-			// TODO: Update Modal form with details from Book API
+			// Bring up modal form when the user clicks the book
 			book.on('click', function(event) {
 				event.preventDefault();
+
 				console.log("--------------");
 				console.log("Background Color: " + $(this).attr("data-bgColor"));
 				console.log("Color: " + $(this).css("color"));
@@ -214,7 +231,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 				}else {
 					$(".bk-cover-img").attr('src', 'assets/images/placeholder.jpg');
 				}
-				// $(".bk-rating").text(bookCache[index].volumeInfo.averageRating + " (" + bookCache[index].volumeInfo.ratingsCount + ")");
 				$(".bk-authors").text(bookCache[index].volumeInfo.authors);
 				var pubDate = new Date(bookCache[index].volumeInfo.publishedDate);
 				$(".bk-datePublished").text(pubDate.toLocaleDateString());
@@ -224,6 +240,9 @@ firebase.auth().onAuthStateChanged(function(user) {
 					$(".bk-categories").text(bookCache[index].volumeInfo.categories);
 				}
 
+				// Update the rating
+				hasUserSelectedRating = false;
+				$(".bk-rating").removeClass('user-rating');
 				displayRating(bookCache[index].volumeInfo.averageRating);
 				$(".bk-rating").attr('title', bookCache[index].volumeInfo.averageRating + ' out of 5 stars');
 
@@ -237,7 +256,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 			// TODO: Move this If statement somewhere else
 			// Obtain the rendered width of the book (add to an array)
 			if(books[i].volumeInfo.industryIdentifiers){
-				var bookEl = document.getElementById("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier);
+				var bookEl = document.getElementById("bk_"+books[i].id);
 				var bookRect = bookEl.getBoundingClientRect();
 				// console.log("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier + "- width:"+ bookRect.width);	
 				combinedBooksWidth += bookRect.width;
@@ -263,7 +282,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 			$("#"+booksWeCanTilt[randomBook].bookID).addClass('tilt-' + randomTilt);
 			tiltedBooks.push(booksWeCanTilt[randomBook]);
 		}
-		console.log('Tilted books: ' + JSON.stringify(tiltedBooks));
+		// console.log('Tilted books: ' + JSON.stringify(tiltedBooks));
 	};
 
 	// Updates the 0-5 star rating in the DOM only
