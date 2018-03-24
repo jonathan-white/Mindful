@@ -8,10 +8,44 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/mindfill.css">
-    <title>Mindfill</title>
     </head>
     <body>
-      <h1>MindFill</h1>
+      <!-- Start Nav Bar -->
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom border-secondary py-0 sticky-top">
+      <a class="navbar-brand" href="#">Mindful</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav mr-4">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">News <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="books.html">Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#mindfill.html">Mindfill</a>
+          </li>
+        </ul>
+        <input id="search" class="form-control form-control-dark" type="text" placeholder="Search News...">
+        <!-- Code for button start -->
+        <div id="user-container">
+          <div hidden id="user-pic"></div>
+          <div hidden id="user-name"></div>
+          <!--<button id=btnSignin class="indexButton btn-action" onclick="btnSignin"> sign-in</button> -->
+
+          <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+           Sign-out
+          </button>
+          <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+            <i class="material-icons">Sign-in</i>
+            </button> 
+        </div>
+        <!--code for button end -->
+      </div>
+    </nav>
       <div 
         class="parallax"> 
       </div>
