@@ -12,7 +12,7 @@ $(document).ready(function(){
 	};
 	firebase.initializeApp(config);
 
-
+	var database = firebase.database();
 
 	// ------------------------------
 	// Handle Sign In / Sign Out
@@ -40,7 +40,9 @@ $(document).ready(function(){
 			$("#sign-in").attr('hidden', true);
 			$("#sign-out").attr('hidden', false);
 
-			firebase.database().ref().push({
+			database.ref().update(user.uid);
+
+			database.ref().push({
 				user: JSON.stringify(user)
 			});
 			console.log('sign in');
@@ -71,6 +73,10 @@ $(document).ready(function(){
 		}).catch(function(error){
 			console.log('sign out failed');
 		});
+	});
+
+	database.ref().on('value', function(snapshot) {
+		console.log(snapshot.val().key);
 	});
 
 	// ------------------------------
