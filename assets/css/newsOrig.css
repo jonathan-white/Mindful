@@ -1,0 +1,223 @@
+/*----------------*/
+/* General Styles */
+/*----------------*/
+
+body{
+	background-color: #ccc;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.col-4 {
+	max-width: none;
+}
+
+/*---------------*/
+/* Article Cards */
+/*---------------*/
+#news-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	width: 100%;
+	transition: opacity 500ms 500ms;
+	margin: 0;
+}
+
+/*#news-container:hover .card {
+	opacity: .3;
+}
+*/
+.card {
+	position: relative;
+	border: 0; 
+	border-radius: 0;
+	overflow: hidden;
+	transition: transform 500ms;
+}
+
+#news-container .card:hover {
+	box-shadow: 0px 2px 50px rgba(0,0,0,.8), 0px 0px 20px 10px rgba(0,0,0,0.6);
+	z-index: 1;
+	opacity: 1;
+}
+
+/* Scale cards by a factor of 1.1 on hover. Also Adjust how the card moves
+   depending on which column it falls under */
+.img-col-1 .card:hover {transform: matrix(1.1,0,0,1.1,20,0);}
+.img-col-2 .card:hover {transform: scale(1.1);}
+.img-col-3 .card:hover {transform: matrix(1.1,0,0,1.1,-20,0);}
+
+
+/* Article Image Zoom out */
+.card-img-top {
+	transform: scale(1.2);
+	transition: transform 500ms;
+	border-radius: 0;
+}
+.card:hover .card-img-top {
+	transform: scale(1);
+}
+
+/* Article Overlay Text */
+.card-body {
+	position: absolute;
+	top: 0;
+	opacity: 0;
+}
+
+/* Hide elements that will only be visible when the article has been clicked */
+.card-body .desc {
+	display: none;
+}
+
+.close-btn {
+	display: none;
+	cursor: pointer;
+}
+
+.card:hover .card-body {
+    color: #fff;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.8), 2px 2px 5px #000;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 1;
+    width: 100%;
+}
+
+/* Have text fly in from different sides, depending on the column */
+.img-col-1 .card:hover .card-body {animation: slide_fromLeft 1s ease forwards;}
+.img-col-2 .card:hover .card-body {animation: slide_fromBottom 1s ease forwards;}
+.img-col-3 .card:hover .card-body {animation: slide_fromRight 1s ease forwards;}
+
+.click-trigger {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+
+
+/*---------------*/
+/* Nav Bar */
+/*---------------*/
+.navbar .form-control {
+	padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.food {
+	width: 135px;
+}
+
+/* Overlays on top of the entire screen, darkens the screen and 
+  helps to disable the hover effect of all other cards when a 
+  specific card has been chosen */
+.prevent-hover-effect.active {
+    position: fixed;
+    top: 48px;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.5);
+}
+
+
+/*------------------*/
+/* Selected Article */
+/*------------------*/
+/* Expanded News Article */
+
+.card.expanded {
+	position: fixed;
+	top: 48px;
+	/*left: 0;*/
+	/*width: 100%;*/
+	height: 70vh;
+	z-index: 2;
+}
+
+.img-col-1 .card.expanded {animation: expand_fromLeft 500ms forwards;}
+.img-col-2 .card.expanded {animation: expand_fromCenter 2500ms forwards;}
+.img-col-3 .card.expanded {animation: expand_fromRight 500ms forwards;}
+
+.card.expanded .click-trigger {
+	display: none;
+}
+
+.img-col-1 .card.expanded:hover,
+.img-col-2 .card.expanded:hover,
+.img-col-3 .card.expanded:hover {
+	transform: none;
+	box-shadow: 0px 2px 50px rgba(0,0,0,.8), 0px 0px 20px 10px rgba(0,0,0,0.6);
+}
+
+.card.expanded .card-img-top {
+	transform: none;
+}
+
+.card.expanded .card-body,
+.card.expanded:hover .card-body {
+	top: 0;
+	left: 0;
+	right: initial;
+	animation: none;
+    opacity: 1;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.8), 2px 2px 5px #000;
+    color: #fff;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.card.expanded .card-body .desc {
+	display: block;
+}
+
+.card.expanded .close-btn {
+	display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    color: #000;
+    border: 2px solid #000;
+    background-color: #ddd;
+    text-align: center;
+    font-weight: 800;
+}
+
+.card.expanded .close-btn:hover {
+	box-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+/*-------------*/
+/*--- Footer---*/
+/*-------------*/
+@import url('https://fonts.googleapis.com/css?family=Passion+One');
+footer {
+	position: fixed;
+	display: flex;
+	justify-content: space-between;
+	bottom: 0;
+	left: 0;
+	padding: 5px 10px;
+	width: 100%;
+	background-color: #000;
+	border-top: .3125rem solid #ccc;
+	color: #666;
+	font-family: "Passion One", Arial, sans-serif;
+	z-index: 99;
+}
+
+footer .right {
+	font-size: 10px;
+	line-height: 2em;
+}
