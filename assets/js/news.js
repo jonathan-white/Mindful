@@ -12,7 +12,7 @@ $(document).ready(function(){
 	firebase.initializeApp(config);
 
 	/* Sign-on Information */
-	("#sign-in").on("click",function(event){
+	$("#sign-in").on("click",function(event){
 	var provider = new firebase.auth.GoogleAuthProvider();
 	  firebase.auth().signInWithPopup(provider).then(function(result) {
 	        // This gives you a Google Access Token. You can use it to access the Google API.
