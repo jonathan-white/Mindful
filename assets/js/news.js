@@ -58,7 +58,7 @@ $(document).ready(function(){
 	$("#sign-out").on('click', function(event) {
 		event.preventDefault();
 		console.log('signed out');
-		$("#user-pic").css('background-image', 'url(../images/profile_placeholder.png)');
+		$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
 		$("#sign-in").attr('hidden', false);
 		$("#sign-out").attr('hidden', true);
 	});
