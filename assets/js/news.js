@@ -14,37 +14,8 @@ $(document).ready(function(){
 
 var user = null;
 
-<<<<<<< HEAD
+
 /* Sign-on Information */
-$("#sign-in").on("click", function(event) {
-	var provider = new firebase.auth.GoogleAuthProvider();
-
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-		console.log(result);
-		// This gives you a Google Access Token. You can use it to access the Google API.
-		var token = result.credential.accessToken;
-		// The signed-in user info.
-		user = result.user;
-		console.log(user);
-		// ...
-	}).catch(function(error) {
-		console.log(error);
-		// Handle Errors here.
-		var errorCode = error.code;
-		var errorMessage = error.message;
-		// The email of the user's account used.
-		var email = error.email;
-		// The firebase.auth.AuthCredential type that was used.
-		var credential = error.credential;
-		// ...
-	});
-
-})
-=======
-
-
-
-	/* Sign-on Information */
 $("#sign-in").on("click", function(event) {
 
 	var provider = new firebase.auth.GoogleAuthProvider();
@@ -72,26 +43,8 @@ $("#sign-in").on("click", function(event) {
         var credential = error.credential;
         // ...
       });
->>>>>>> 296ccfef7b712710f7f07edd15b22a8ce8c3af32
 
 });
-
-
-
-	/* End Sign-on info */
-
-/*-----------------------
-update the database
-------------------------*/
-<<<<<<< HEAD
-
-firebase.database().ref().push({
-	user: JSON.stringify(user)
-})
-=======
-	
->>>>>>> 296ccfef7b712710f7f07edd15b22a8ce8c3af32
-
 
 	// ------------------------------
 	// News API Endpoint & Ajax Call
