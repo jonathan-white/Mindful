@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+// AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0
 	// Initialize Firebase
 	var config = {
 		apiKey: "AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0",
@@ -13,33 +14,29 @@ $(document).ready(function(){
 
 var user = null;
 
-
-
-
-	/* Sign-on Information */
-	$("#sign-in").on("click", function(event) {
-
+/* Sign-on Information */
+$("#sign-in").on("click", function(event) {
 	var provider = new firebase.auth.GoogleAuthProvider();
 
-	  firebase.auth().signInWithPopup(provider).then(function(result) {
-	  		console.log(result);
-	        // This gives you a Google Access Token. You can use it to access the Google API.
-	        var token = result.credential.accessToken;
-	        // The signed-in user info.
-	        user = result.user;
-	        console.log(user);
-	        // ...
-	      }).catch(function(error) {
-	      	console.log(error);
-	        // Handle Errors here.
-	        var errorCode = error.code;
-	        var errorMessage = error.message;
-	        // The email of the user's account used.
-	        var email = error.email;
-	        // The firebase.auth.AuthCredential type that was used.
-	        var credential = error.credential;
-	        // ...
-	      });
+	firebase.auth().signInWithPopup(provider).then(function(result) {
+		console.log(result);
+		// This gives you a Google Access Token. You can use it to access the Google API.
+		var token = result.credential.accessToken;
+		// The signed-in user info.
+		user = result.user;
+		console.log(user);
+		// ...
+	}).catch(function(error) {
+		console.log(error);
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// The email of the user's account used.
+		var email = error.email;
+		// The firebase.auth.AuthCredential type that was used.
+		var credential = error.credential;
+		// ...
+	});
 
 })
 
@@ -53,22 +50,10 @@ update the database
 ------------------------*/
 
 firebase.database().ref().push({
-		tName:tName,
-		tDestination:tDestination,
-		tStartTime:parseInt(tStartTime),
-		tFrequency:parseInt(tFrequency),
-		dateAdded:firebase.database.ServerValue.TIMESTAMP
-	})
-	$("#trainNameInput").val("");
-	$("#destinationInput").val("");
-	$("#trainStartTimeInput").val("");
-	$("#trainFrequencyInput").val("");
-
+	user: JSON.stringify(user)
 })
 
-// end of db changes
 
-''
 	// ------------------------------
 	// News API Endpoint & Ajax Call
 	// ------------------------------
