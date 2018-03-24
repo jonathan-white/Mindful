@@ -26,6 +26,7 @@ $(document).ready(function(){
 		var provider = new firebase.auth.GoogleAuthProvider();
 
 		firebase.auth().signInWithPopup(provider).then(function(result) {
+			console.log('sign in successful');
 			// This gives you a Google Access Token. You can use it to access the Google API.
 			var token = result.credential.accessToken;
 			// The signed-in user info.
@@ -43,6 +44,7 @@ $(document).ready(function(){
 			});
 			console.log('sign in');
 		}).catch(function(error) {
+			console.log('sign in failed');
 			console.log(error);
 			// Handle Errors here.
 			var errorCode = error.code;
@@ -57,11 +59,16 @@ $(document).ready(function(){
 
 	$("#sign-out").on('click', function(event) {
 		event.preventDefault();
-		console.log('signed out');
-		$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
-		$("#user-name").text('');
-		$("#sign-in").attr('hidden', false);
-		$("#sign-out").attr('hidden', true);
+
+		firebase.auth().signOut().then(function(){
+			console.log('sign out successful');
+			$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
+			$("#user-name").text('');
+			$("#sign-in").attr('hidden', false);
+			$("#sign-out").attr('hidden', true);
+		}).catch(function(error){
+			console.log('sign out failed');
+		});
 	});
 
 	// ------------------------------
