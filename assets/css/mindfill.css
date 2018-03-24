@@ -7,9 +7,22 @@
     min-height: 500px; 
 
     /* Create the parallax scrolling effect */
-    background-size: 100%;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+  .parallax2 {
+    /* The image used */
+    background: url("../images/image2.jpeg");
+
+    /* Set a specific height */
+    min-height: 500px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
