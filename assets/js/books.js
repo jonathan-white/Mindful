@@ -61,10 +61,10 @@ $(document).ready(function(){
 	});
 
 	// Expand the Hidden section below the book details and summary
-	$(".bk-excerpt").on('click', function(event) {
-		// event.preventDefault();
-		$(".bk-excerpt-holder").slideToggle(400);
-	});
+	// $(".bk-excerpt").on('click', function(event) {
+	// 	// event.preventDefault();
+	// 	$(".bk-excerpt-holder").slideToggle(400);
+	// });
 
 	// On mouse hover, visually adjust the rating
 	$(".bk-rating").hover(function() {
