@@ -33,13 +33,15 @@ $(document).ready(function(){
 			console.log(user);
 
 			// Change image
-			$("#user-pic").css('background-image', user.photoURL);
+			$("#user-pic").css('background-image', 'url(' + user.photoURL + ')');
+			$("#user-name").css('background-image', user.displayName);
 			$("#sign-in").attr('hidden', true);
 			$("#sign-out").attr('hidden', false);
 
 			firebase.database().ref().push({
 				user: JSON.stringify(user)
 			});
+			console.log('sign in');
 		}).catch(function(error) {
 			console.log(error);
 			// Handle Errors here.
@@ -55,6 +57,7 @@ $(document).ready(function(){
 
 	$("#sign-out").on('click', function(event) {
 		event.preventDefault();
+		console.log('signed out');
 		$("#user-pic").css('background-image', 'url(../images/profile_placeholder.png)');
 		$("#sign-in").attr('hidden', false);
 		$("#sign-out").attr('hidden', true);
