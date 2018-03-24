@@ -92,7 +92,7 @@ footer .right {
   margin-left: 10px;
 }
 #user-container #user-name {
-  line-height: 2.5rem;
+  /*line-height: 2.5rem;*/
   padding-left: 20px;
   width: 100%;
   color: #fff;
