@@ -40,3 +40,14 @@
         margin: 1.75rem auto;
     }
 }
+
+/* Only apply these styles when the screen is small (mobile) */
+@media (max-width: 576px) {
+	.navbar .form-control {
+		margin-bottom: 1rem;
+	}
+
+	.navbar-dark .navbar-brand {
+		margin-left: 10rem;
+	}
+}
