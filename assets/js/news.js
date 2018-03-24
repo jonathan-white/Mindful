@@ -12,12 +12,17 @@ $(document).ready(function(){
 	};
 	firebase.initializeApp(config);
 
-	var user = null;
 
+
+	// ------------------------------
+	// Handle Sign In / Sign Out
+	// ------------------------------
+
+	var user = null;
 
 	/* Sign-on Information */
 	$("#sign-in").on("click", function(event) {
-
+		event.preventDefault();
 		var provider = new firebase.auth.GoogleAuthProvider();
 
 		firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -46,7 +51,13 @@ $(document).ready(function(){
 			var credential = error.credential;
 		// ...
 		});
+	});
 
+	$("#sign-out").on('click', function(event) {
+		event.preventDefault();
+		$("#user-pic").css('background-image', 'url(../images/profile_placeholder.png)');
+		$("#sign-in").attr('hidden', false);
+		$("#sign-out").attr('hidden', true);
 	});
 
 	// ------------------------------
