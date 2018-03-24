@@ -34,7 +34,7 @@ $(document).ready(function(){
 
 			// Change image
 			$("#user-pic").css('background-image', 'url(' + user.photoURL + ')');
-			$("#user-name").css('background-image', user.displayName);
+			$("#user-name").text(user.displayName);
 			$("#sign-in").attr('hidden', true);
 			$("#sign-out").attr('hidden', false);
 
@@ -59,6 +59,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		console.log('signed out');
 		$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
+		$("#user-name").text('');
 		$("#sign-in").attr('hidden', false);
 		$("#sign-out").attr('hidden', true);
 	});
