@@ -1,18 +1,5 @@
 $(document).ready(function(){
 
-	// Initialize Firebase
-	var config = {
-		apiKey: "AIzaSyByyxxxJ0lZ_anb0-1G1vTxQKfKjbrSlyU",
-		authDomain: "mindful-87015.firebaseapp.com",
-		databaseURL: "https://mindful-87015.firebaseio.com",
-		projectId: "mindful-87015",
-		storageBucket: "",
-		messagingSenderId: "716704348602"
-	};
-	firebase.initializeApp(config);
-
-	var database = firebase.database();
-
 	var bookCache = {};
 	var index = null;
 	var newRating = null;
@@ -100,6 +87,7 @@ $(document).ready(function(){
 			// user's selected value, however, once the book is closed and
 			// a new book (or the same book) is opened, it still pulls the 
 			// default value.
+			// console.log(userID);
 			userRating = newRating;
 			hasUserSelectedRating = true;
 			

@@ -18,53 +18,28 @@ $(document).ready(function(){
 	// Handle Sign In / Sign Out
 	// ------------------------------
 
-	var siteuser = null;
+	var userID = null;
 
-	/* Sign-on Information */
+	// User clicks the SignIn button
 	$("#sign-in").on("click", function(event) {
 		event.preventDefault();
 		var provider = new firebase.auth.GoogleAuthProvider();
 
 		// Display Google Sign in Window
 		firebase.auth().signInWithPopup(provider).then(function(result) {
-			console.log('sign in successful');
+			console.log('Google sign in successful');
 			// This gives you a Google Access Token. You can use it to access the Google API.
 			var token = result.credential.accessToken;
 			// The signed-in user info.
-			siteuser = result.user;
-			console.log(siteuser);
+			console.log(result.user);
 
-			// Change image
-			showSignIn();
-
-			writeUserData(siteuser.uid, siteuser.DisplayName, siteuser.email, siteuser.photoURL);
-
-			database.ref().push({
-				user: JSON.stringify(siteuser)
-			});
-			console.log('sign in');
 		}).catch(function(error) {
 			console.log('Google sign in failed');
 			console.log(error);
 
 			// Sign in Anonymously 
 			firebase.auth().signInAnonymously();
-			firebase.auth().onAuthStateChanged(function(user) {
-				if (user) {
-					// User is signed in.
-					var isAnonymous = user.isAnonymous;
-					var uid = user.uid;
-					console.log('Anon Sign in successful ' + uid);
-					showSignIn();
-					writeUserData(uid, user.displayName, user.email, user.photoURL);
-					// database.ref().set({
-					// 	userID: uid
-					// });
-				}else {
-					console.log('Anon Sign logged off ' + uid);
-					showSignOut();
-				}
-			});
+	
 			// Handle Errors here.
 			var errorCode = error.code;
 			var errorMessage = error.message;
@@ -74,24 +49,48 @@ $(document).ready(function(){
 			var credential = error.credential;
 		// ...
 		});
+
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				// User is signed in.
+				var isAnonymous = user.isAnonymous;
+				var uid = user.uid;
+				userID = user.uid;
+				console.log('Sign in successful ' + uid);
+				console.log(user);
+
+				// Change image
+				showSignIn(user);
+
+				writeUserData(uid, user.displayName || '', user.email || '', user.photoURL || '');
+				writeLastLogin(uid);	
+			}else {
+				// User is signed out
+				console.log('Sign out successful ' + uid);
+				
+				// Change image
+				showSignOut();
+
+			}
+		});
+
+
 	});
 
+	// User clicks the SignOut button
 	$("#sign-out").on('click', function(event) {
 		event.preventDefault();
 
 		firebase.auth().signOut().then(function(){
-			console.log('sign out successful');
+			console.log('Sign out successful (button click)');
 			showSignOut();
 		}).catch(function(error){
 			console.log('sign out failed');
 		});
 	});
 
-	// database.ref().on('value', function(snapshot) {
-	// 	console.log(snapshot.val());
-	// });
 
-	function showSignIn(){
+	function showSignIn(siteuser){
 		if(siteuser === null){
 			$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
 			$("#user-name").text('Anonymous');
@@ -117,6 +116,18 @@ $(document).ready(function(){
 			username: name,
 			email: email,
 			profile_picture: imageURL
+		});
+	}
+
+	function writeLastLogin(userId){
+		database.ref('users/' + userId).update({
+			lastLogin: firebase.database.ServerValue.TIMESTAMP
+		});
+	}
+
+	function writeLastLogout(userId){
+		database.ref('users/' + userId).update({
+			lastLogout: firebase.database.ServerValue.TIMESTAMP
 		});
 	}
 
