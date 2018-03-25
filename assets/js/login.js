@@ -37,7 +37,7 @@ $(document).ready(function(){
 			// Change image
 			showSignIn();
 
-			// database.ref().update(user.uid);
+			writeUserData(siteuser.uid, siteuser.DisplayName, siteuser.email, siteuser.photoURL);
 
 			database.ref().push({
 				user: JSON.stringify(siteuser)
@@ -56,6 +56,7 @@ $(document).ready(function(){
 					var uid = user.uid;
 					console.log('Anon Sign in successful ' + uid);
 					showSignIn();
+					writeUserData(user.uid, user.DisplayName, user.email, user.photoURL);
 					database.ref().set({
 						userID: uid
 					});
@@ -109,6 +110,14 @@ $(document).ready(function(){
 		$("#user-name").attr('hidden', true);
 		$("#sign-in").attr('hidden', false);
 		$("#sign-out").attr('hidden', true);
+	}
+
+	function writeUserData(userId, name, email, imageURL){
+		firebase.database().ref('users/' + userId).set({
+			username: name,
+			email: email,
+			profile_picture: imageURL
+		});
 	}
 
 });
