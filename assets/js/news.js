@@ -3,7 +3,7 @@ $(document).ready(function(){
 	// AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0
 	// Initialize Firebase
 	var config = {
-		apiKey: "AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0",
+		apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
 		authDomain: "mindful-87015.firebaseapp.com",
 		databaseURL: "https://mindful-87015.firebaseio.com",
 		projectId: "mindful-87015",
@@ -96,7 +96,11 @@ $(document).ready(function(){
 
 		addArticlesToDOM(response);
 	}).catch(function(){
+		console.log('News API failed, getting news from backup...');
 		// Error handling
+		// https://api.nuzzel.com/v1.0/news
+		// 
+		// https://api.nuzzel.com/v1.0/reports
 	});
 
 	$(".prevent-hover-effect").click(function(event) {
