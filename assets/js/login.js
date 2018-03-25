@@ -2,15 +2,15 @@ $(document).ready(function(){
 
 	// AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0
 	// Initialize Firebase
-	  var config = {
-	    apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
-	    authDomain: "mindful-8b7fa.firebaseapp.com",
-	    databaseURL: "https://mindful-8b7fa.firebaseio.com",
-	    projectId: "mindful-8b7fa",
-	    storageBucket: "mindful-8b7fa.appspot.com",
-	    messagingSenderId: "963063155418"
-	  };
-	  firebase.initializeApp(config);
+	var config = {
+		apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
+		authDomain: "mindful-8b7fa.firebaseapp.com",
+		databaseURL: "https://mindful-8b7fa.firebaseio.com",
+		projectId: "mindful-8b7fa",
+		storageBucket: "mindful-8b7fa.appspot.com",
+		messagingSenderId: "963063155418"
+	};
+	firebase.initializeApp(config);
 
 	var database = firebase.database();
 
@@ -56,10 +56,10 @@ $(document).ready(function(){
 					var uid = user.uid;
 					console.log('Anon Sign in successful ' + uid);
 					showSignIn();
-					writeUserData(user.uid, user.DisplayName, user.email, user.photoURL);
-					database.ref().set({
-						userID: uid
-					});
+					writeUserData(uid, user.displayName, user.email, user.photoURL);
+					// database.ref().set({
+					// 	userID: uid
+					// });
 				}else {
 					console.log('Anon Sign logged off ' + uid);
 					showSignOut();
@@ -87,9 +87,9 @@ $(document).ready(function(){
 		});
 	});
 
-	database.ref().on('value', function(snapshot) {
-		console.log(snapshot.val());
-	});
+	// database.ref().on('value', function(snapshot) {
+	// 	console.log(snapshot.val());
+	// });
 
 	function showSignIn(){
 		if(siteuser === null){
@@ -113,7 +113,7 @@ $(document).ready(function(){
 	}
 
 	function writeUserData(userId, name, email, imageURL){
-		firebase.database().ref('users/' + userId).set({
+		database.ref('users/' + userId).set({
 			username: name,
 			email: email,
 			profile_picture: imageURL
