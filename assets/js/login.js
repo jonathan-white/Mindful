@@ -52,15 +52,15 @@ $(document).ready(function(){
 			console.log(error);
 
 			// Sign in Anonymously 
-			firebase.auth().signInAnonymously();
-			firebase.auth().onAuthStateChanged(function(user) {
-				if (user) {
-					// User is signed in.
-					var isAnonymous = user.isAnonymous;
-					var uid = user.uid;
-					console.log('Anon Sign in successful ' + uid);
-				}
-			});
+			// firebase.auth().signInAnonymously();
+			// firebase.auth().onAuthStateChanged(function(user) {
+			// 	if (user) {
+			// 		// User is signed in.
+			// 		var isAnonymous = user.isAnonymous;
+			// 		var uid = user.uid;
+			// 		console.log('Anon Sign in successful ' + uid);
+			// 	}
+			// });
 			// Handle Errors here.
 			var errorCode = error.code;
 			var errorMessage = error.message;
