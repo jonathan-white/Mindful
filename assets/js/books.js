@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	var database = firebase.database();
+
 	var bookCache = {};
 	var index = null;
 	var newRating = null;
@@ -47,6 +49,11 @@ $(document).ready(function(){
 		}
 	});
 
+	// Use this codeblock to post saved books/news articles to user's mindfill 
+	database.ref('users').on('child_added', function(childSnapshot) {
+		console.log(childSnapshot.key);
+	});
+
 	// Expand the Hidden section below the book details and summary
 	// $(".bk-excerpt").on('click', function(event) {
 	// 	// event.preventDefault();
@@ -71,35 +78,23 @@ $(document).ready(function(){
 		}
 	});
 
-// Log the user in anonymously
-// firebase.auth().signInAnonymously();
+	$(".bk-rating").on('click', function(event) {
+		// 
+		// TODO: this currently sets the rating of the displayed book to the
+		// user's selected value, however, once the book is closed and
+		// a new book (or the same book) is opened, it still pulls the 
+		// default value.
+		userRating = newRating;
+		hasUserSelectedRating = true;
 
-// Only update the database if the user is logged in
-// firebase.auth().onAuthStateChanged(function(user) {
-// 	if (user) {
-// 		// User is signed in.
-// 		var isAnonymous = user.isAnonymous;
-// 		var uid = user.uid;
+		if(userID != null){
+			// Update database
+			database.ref('users/' + userID + '/books/' + bookCache[index].id).update({
+				rating: userRating
+			});
+		}
 
-		$(".bk-rating").on('click', function(event) {
-			// 
-			// TODO: this currently sets the rating of the displayed book to the
-			// user's selected value, however, once the book is closed and
-			// a new book (or the same book) is opened, it still pulls the 
-			// default value.
-			// console.log(userID);
-			userRating = newRating;
-			hasUserSelectedRating = true;
-			
-			// Update firebase with the user's new rating for this book.
-			// database.ref().push({
-			// 	userID: 1,
-			// 	bookID: JSON.stringify(bookCache[index]),
-			// 	rating: userRating
-			// });
-		});
-// 	}
-// });
+	});
 
 	function getBooks(books){
 		$(".shelf").empty();
@@ -148,7 +143,7 @@ $(document).ready(function(){
 					"data-banner-color": "#000"
 				});
 
-				book.css('width', 'calc('+ author_lastName[author_lastName.length-1].length +' * 6.67px)');
+				book.css('min-width', 'calc('+ author_lastName[author_lastName.length-1].length +' * 6.67px)');
 			}else {
 				book.attr('data-banner-color', 'rgb('+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +','+ Math.floor(Math.random()*255) +')');
 			}
@@ -202,13 +197,26 @@ $(document).ready(function(){
 			// Bring up modal form when the user clicks the book
 			book.on('click', function(event) {
 				event.preventDefault();
+				// Update the Modal form
+				index = $(this).attr('data-index');
+
+				// TODO: check if the user is logged in
+				if(userID != null){
+					database.ref('users/'+ userID +'/books/' + books[index].id).update({
+						lastViewed: firebase.database.ServerValue.TIMESTAMP
+					});
+
+					if(books[i].volumeInfo.industryIdentifiers) {
+						database.ref('users/'+ userID +'/books/' + books[index].id).update({
+							isbn: books[index].volumeInfo.industryIdentifiers[0].identifier
+						});
+					}
+				}
 
 				console.log("--------------");
 				console.log("Background Color: " + $(this).attr("data-bgColor"));
 				console.log("Color: " + $(this).css("color"));
 
-				// Update the Modal form
-				index = $(this).attr('data-index');
 
 				// Update the modal's header with the book's title
 				$("#bookTitle").text(bookCache[index].volumeInfo.title);

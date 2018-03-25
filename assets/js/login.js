@@ -18,8 +18,6 @@ $(document).ready(function(){
 	// Handle Sign In / Sign Out
 	// ------------------------------
 
-	var userID = null;
-
 	// User clicks the SignIn button
 	$("#sign-in").on("click", function(event) {
 		event.preventDefault();
@@ -63,10 +61,12 @@ $(document).ready(function(){
 				showSignIn(user);
 
 				writeUserData(uid, user.displayName || '', user.email || '', user.photoURL || '');
+				
+				// Record user's login time in the database
 				writeLastLogin(uid);	
 			}else {
 				// User is signed out
-				console.log('Sign out successful ' + uid);
+				console.log('Sign out successful ' + userID);
 				
 				// Change image
 				showSignOut();
@@ -81,9 +81,12 @@ $(document).ready(function(){
 	$("#sign-out").on('click', function(event) {
 		event.preventDefault();
 
+		// Record user's logout time in the database
+		writeLastLogout(userID);
+
 		firebase.auth().signOut().then(function(){
 			console.log('Sign out successful (button click)');
-			showSignOut();
+			// showSignOut();
 		}).catch(function(error){
 			console.log('sign out failed');
 		});
@@ -112,7 +115,7 @@ $(document).ready(function(){
 	}
 
 	function writeUserData(userId, name, email, imageURL){
-		database.ref('users/' + userId).set({
+		database.ref('users/' + userId).update({
 			username: name,
 			email: email,
 			profile_picture: imageURL
