@@ -1,13 +1,26 @@
 $(document).ready(function(){
 	// AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0
+
+	//  Jon's Database
+	// Initialize Firebase
+	// var config = {
+	// 	apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
+	// 	authDomain: "mindful-8b7fa.firebaseapp.com",
+	// 	databaseURL: "https://mindful-8b7fa.firebaseio.com",
+	// 	projectId: "mindful-8b7fa",
+	// 	storageBucket: "mindful-8b7fa.appspot.com",
+	// 	messagingSenderId: "963063155418"
+	// };
+	// firebase.initializeApp(config);
+
 	// Initialize Firebase
 	var config = {
-		apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
-		authDomain: "mindful-8b7fa.firebaseapp.com",
-		databaseURL: "https://mindful-8b7fa.firebaseio.com",
-		projectId: "mindful-8b7fa",
-		storageBucket: "mindful-8b7fa.appspot.com",
-		messagingSenderId: "963063155418"
+		apiKey: "AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0",
+		authDomain: "mindful-87015.firebaseapp.com",
+		databaseURL: "https://mindful-87015.firebaseio.com",
+		projectId: "mindful-87015",
+		storageBucket: "mindful-87015.appspot.com",
+		messagingSenderId: "716704348602"
 	};
 	firebase.initializeApp(config);
 
@@ -17,6 +30,7 @@ $(document).ready(function(){
 	if(localStorage.userID){
 		userID = localStorage.getItem("userID");
 		console.log('Already signed in as ' + userID);
+		showSignIn(userID);
 	}
 
 	// ------------------------------
@@ -34,7 +48,7 @@ $(document).ready(function(){
 			// This gives you a Google Access Token. You can use it to access the Google API.
 			var token = result.credential.accessToken;
 			// The signed-in user info.
-			console.log(result.user);
+			// console.log(result.user);
 
 		}).catch(function(error) {
 			console.log('Google sign in failed');
@@ -64,7 +78,7 @@ $(document).ready(function(){
 				localStorage.setItem("userID",userID);
 
 				console.log('Sign in successful ' + uid);
-				console.log(user);
+				// console.log(user);
 
 				// Change image
 				showSignIn(user);
@@ -92,7 +106,9 @@ $(document).ready(function(){
 
 		// Record user's logout time in the database
 		writeLastLogout(userID);
-		localStorage.getItem("userID");
+		localStorage.removeItem("userID");
+		showSignOut();
+
 		firebase.auth().signOut().then(function(){
 			console.log('Sign out successful (button click)');
 			// showSignOut();
@@ -103,12 +119,12 @@ $(document).ready(function(){
 
 
 	function showSignIn(siteuser){
-		if(siteuser === null){
-			$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
-			$("#user-name").text('Anonymous');
-		}else {
+		if(siteuser.isAnonymous === false){
 			$("#user-pic").css('background-image', 'url(' + siteuser.photoURL + ')');
 			$("#user-name").text(siteuser.displayName);
+		}else {
+			$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
+			$("#user-name").text('Anonymous');
 		}
 		$("#user-name").attr('hidden', false);
 		$("#sign-in").attr('hidden', true);

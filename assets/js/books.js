@@ -53,10 +53,11 @@ $(document).ready(function(){
 		}
 	});
 
+	// Everytime the database is updated run this code
 	database.ref().on('value', function(snapshot) {
 		if(snapshot.child('users/'+userID).exists()){
 			// user is already logged in
-			console.log('returning user: ' + userID);
+			// console.log('returning user: ' + userID);
 		}
 	});
 
@@ -211,7 +212,7 @@ $(document).ready(function(){
 				// Update the Modal form
 				index = $(this).attr('data-index');
 
-				// TODO: check if the user is logged in
+				// If the user is logged in
 				if(userID != null){
 					database.ref('users/'+ userID +'/books/' + books[index].id).update({
 						bookRef: books[index]
@@ -219,7 +220,7 @@ $(document).ready(function(){
 					database.ref('users/'+ userID +'/books/' + books[index].id).update({
 						lastViewed: firebase.database.ServerValue.TIMESTAMP,
 						title: books[index].volumeInfo.title,
-						coverURL: books[index].volumeInfo.imageLinks.thumbnail || 'none'
+						coverURL: books[index].volumeInfo.imageLinks.thumbnail || 'assets/images/placeholder.jpg'
 					});
 
 					if(books[i].volumeInfo.industryIdentifiers) {

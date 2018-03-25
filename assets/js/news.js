@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	
+
+	var database = firebase.database();
+
 	if(localStorage.userID){
 		userID = localStorage.getItem("userID");
 	}
@@ -120,7 +122,19 @@ $(document).ready(function(){
 				$(".prevent-hover-effect").toggleClass('active');
 
 				if($(".prevent-hover-effect").hasClass('active')){
+					// Search for Youtube videos once the card is expanded
 					getVideos(article.title, $(this).siblings('.article-content').children('.article-video'));	
+				
+					// Add article's info to database
+					if(userID != null){
+						var articleID = article.publishedAt;
+						database.ref('users/'+ userID +'/news/' + articleID).update({
+							newsRef: article,
+							url: article.url,
+							title: article.title,
+							source: article.source.name
+						});
+					}
 				}
 			});
 
