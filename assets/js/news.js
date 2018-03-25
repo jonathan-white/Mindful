@@ -2,6 +2,7 @@ $(document).ready(function(){
 
 	var database = firebase.database();
 
+	var userID;
 	if(localStorage.userID){
 		userID = localStorage.getItem("userID");
 	}

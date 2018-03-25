@@ -27,11 +27,18 @@ $(document).ready(function(){
 	var database = firebase.database();
 
 	var userID;
+	var siteuser;
 	if(localStorage.userID){
 		userID = localStorage.getItem("userID");
+		siteuser = JSON.parse(localStorage.getItem("userObj"));
 		console.log('Already signed in as ' + userID);
-		showSignIn(userID);
+		// need to use the user object
+		showSignIn(siteuser);
 	}
+
+	// database.ref().once('value').then(function(snapshot){
+	// 	showSignIn(siteuser);
+	// });
 
 	// ------------------------------
 	// Handle Sign In / Sign Out
@@ -76,6 +83,7 @@ $(document).ready(function(){
 
 				// Store UserID to localStorage
 				localStorage.setItem("userID",userID);
+				localStorage.setItem("userObj",JSON.stringify(user));
 
 				console.log('Sign in successful ' + uid);
 				// console.log(user);
@@ -107,6 +115,7 @@ $(document).ready(function(){
 		// Record user's logout time in the database
 		writeLastLogout(userID);
 		localStorage.removeItem("userID");
+		localStorage.removeItem("userObj");
 		showSignOut();
 
 		firebase.auth().signOut().then(function(){
