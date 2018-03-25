@@ -1,13 +1,13 @@
 .parallax {
     /* The image used */
-    background: url("../images/image1.jpg");
+    background: url("../images/news.jpg");
 
     /* Set a specific height */
-    min-height: 200px; 
+    min-height: 300px; 
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
-    background-position: center;
+    background-position: 50% 0%;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -17,7 +17,7 @@
     background: url("../images/image2.jpg");
 
     /* Set a specific height */
-    min-height: 200px; 
+    min-height: 300px; 
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
@@ -26,3 +26,27 @@
     background-size: cover;
 }
 
+.card {
+    overflow: hidden;
+}
+
+.news-collection .card {
+    min-height: 100px;
+}
+
+.card-body {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    /*transition: bottom 1s;*/
+}
+
+.card-body {
+    width: 100%;
+}
+
+/*.card-body:hover {
+    bottom: 0;
+}
+*/

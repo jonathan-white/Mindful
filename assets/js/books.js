@@ -221,10 +221,15 @@ $(document).ready(function(){
 					database.ref('users/'+ userID +'/books/' + books[index].id).update({
 						bookRef: books[index]
 					});
+
+					var bookImg = 'assets/images/placeholder.jpg';
+					if(books[index].volumeInfo.imageLinks){
+						bookImg = books[index].volumeInfo.imageLinks.thumbnail
+					}
 					database.ref('users/'+ userID +'/books/' + books[index].id).update({
 						lastViewed: firebase.database.ServerValue.TIMESTAMP,
 						title: books[index].volumeInfo.title,
-						coverURL: books[index].volumeInfo.imageLinks.thumbnail || 'assets/images/placeholder.jpg'
+						coverURL: bookImg
 					});
 
 					if(books[i].volumeInfo.industryIdentifiers) {

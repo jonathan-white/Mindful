@@ -24,6 +24,7 @@
 
   	<!-- Custom JS -->
   	<script src="assets/js/login.js"></script>
+  	<script src="assets/js/mindfill.js"></script>
 </head>
 <body>
 	<!-- Start Nav Bar -->
@@ -60,21 +61,29 @@
 			<!-- End Sign-in -->
 		</div>
 	</nav>
+	<div class="jumbotron">
+		<h1 class="display-4">Greetings User</h1>
+		<p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind!</p>
+	</div>
 
+	<!-- News Parallax -->
 	<div class="parallax"></div>
-	<div style="height:500px;background-color:transparent;font-size:36px">
-		<div class="jumbotron">
-			<h1 class="display-4">Greetings User</h1>
-			<p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind!</p>
-		</div>
+
+	<div class="jumbotron">
+		<h1 class="display-4">Viewed News Articles</h1>
+		<p class="lead">These are the news articles you have viewed</p>
 	</div>
+	<div class="news-collection d-flex justify-content-around"></div>
+
+	<!-- Books Parallax -->
 	<div class="parallax2"></div>
-	<div style="height:500px;background-color:transparent;font-size:36px">
-		<div class="jumbotron">
-			<h1 class="display-4">Greetings User</h1>
-			<p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind! </p>
-		</div>
+
+	<div class="jumbotron">
+		<h1 class="display-4">Viewed Books</h1>
+		<p class="lead">These are the books you have viewed</p>
 	</div>
+	<div class="book-collection d-flex justify-content-around"></div>
+
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
