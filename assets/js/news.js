@@ -1,74 +1,84 @@
 $(document).ready(function(){
 
+	// AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0
 	// Initialize Firebase
-	var config = {
-		apiKey: "AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0",
-		authDomain: "mindful-87015.firebaseapp.com",
-		databaseURL: "https://mindful-87015.firebaseio.com",
-		projectId: "mindful-87015",
-		storageBucket: "",
-		messagingSenderId: "716704348602"
-	};
-	firebase.initializeApp(config);
+	// var config = {
+	// 	apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
+	// 	authDomain: "mindful-87015.firebaseapp.com",
+	// 	databaseURL: "https://mindful-87015.firebaseio.com",
+	// 	projectId: "mindful-87015",
+	// 	storageBucket: "",
+	// 	messagingSenderId: "716704348602"
+	// };
+	// firebase.initializeApp(config);
 
-var user = null;
+	// var database = firebase.database();
 
+	// // ------------------------------
+	// // Handle Sign In / Sign Out
+	// // ------------------------------
 
+	// var user = null;
 
+	// /* Sign-on Information */
+	// $("#sign-in").on("click", function(event) {
+	// 	event.preventDefault();
+	// 	var provider = new firebase.auth.GoogleAuthProvider();
 
-	/* Sign-on Information */
-	$("#sign-in").on("click", function(event) {
+	// 	firebase.auth().signInWithPopup(provider).then(function(result) {
+	// 		console.log('sign in successful');
+	// 		// This gives you a Google Access Token. You can use it to access the Google API.
+	// 		var token = result.credential.accessToken;
+	// 		// The signed-in user info.
+	// 		user = result.user;
+	// 		console.log(user);
 
-	var provider = new firebase.auth.GoogleAuthProvider();
+	// 		// Change image
+	// 		$("#user-pic").css('background-image', 'url(' + user.photoURL + ')');
+	// 		$("#user-name").text(user.displayName);
+	// 		$("#user-name").attr('hidden', false);
+	// 		$("#sign-in").attr('hidden', true);
+	// 		$("#sign-out").attr('hidden', false);
 
-	  firebase.auth().signInWithPopup(provider).then(function(result) {
-	  		console.log(result);
-	        // This gives you a Google Access Token. You can use it to access the Google API.
-	        var token = result.credential.accessToken;
-	        // The signed-in user info.
-	        user = result.user;
-	        console.log(user);
-	        // ...
-	      }).catch(function(error) {
-	      	console.log(error);
-	        // Handle Errors here.
-	        var errorCode = error.code;
-	        var errorMessage = error.message;
-	        // The email of the user's account used.
-	        var email = error.email;
-	        // The firebase.auth.AuthCredential type that was used.
-	        var credential = error.credential;
-	        // ...
-	      });
+	// 		// database.ref().update(user.uid);
 
-})
+	// 		database.ref().push({
+	// 			user: JSON.stringify(user)
+	// 		});
+	// 		console.log('sign in');
+	// 	}).catch(function(error) {
+	// 		console.log('sign in failed');
+	// 		console.log(error);
+	// 		// Handle Errors here.
+	// 		var errorCode = error.code;
+	// 		var errorMessage = error.message;
+	// 		// The email of the user's account used.
+	// 		var email = error.email;
+	// 		// The firebase.auth.AuthCredential type that was used.
+	// 		var credential = error.credential;
+	// 	// ...
+	// 	});
+	// });
 
+	// $("#sign-out").on('click', function(event) {
+	// 	event.preventDefault();
 
+	// 	firebase.auth().signOut().then(function(){
+	// 		console.log('sign out successful');
+	// 		$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
+	// 		$("#user-name").text('');
+	// 		$("#user-name").attr('hidden', true);
+	// 		$("#sign-in").attr('hidden', false);
+	// 		$("#sign-out").attr('hidden', true);
+	// 	}).catch(function(error){
+	// 		console.log('sign out failed');
+	// 	});
+	// });
 
-	/* End Sign-on info */
+	// database.ref().on('value', function(snapshot) {
+	// 	console.log(snapshot.val().key);
+	// });
 
-
-/*-----------------------
-update the database
-------------------------*/
-
-firebase.database().ref().push({
-		tName:tName,
-		tDestination:tDestination,
-		tStartTime:parseInt(tStartTime),
-		tFrequency:parseInt(tFrequency),
-		dateAdded:firebase.database.ServerValue.TIMESTAMP
-	})
-	$("#trainNameInput").val("");
-	$("#destinationInput").val("");
-	$("#trainStartTimeInput").val("");
-	$("#trainFrequencyInput").val("");
-
-})
-
-// end of db changes
-
-''
 	// ------------------------------
 	// News API Endpoint & Ajax Call
 	// ------------------------------
@@ -86,7 +96,11 @@ firebase.database().ref().push({
 
 		addArticlesToDOM(response);
 	}).catch(function(){
+		console.log('News API failed, getting news from backup...');
 		// Error handling
+		// https://api.nuzzel.com/v1.0/news
+		// 
+		// https://api.nuzzel.com/v1.0/reports
 	});
 
 	$(".prevent-hover-effect").click(function(event) {
