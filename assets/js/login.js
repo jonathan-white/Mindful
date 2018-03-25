@@ -18,7 +18,7 @@ $(document).ready(function(){
 	// Handle Sign In / Sign Out
 	// ------------------------------
 
-	var user = null;
+	var siteuser = null;
 
 	/* Sign-on Information */
 	$("#sign-in").on("click", function(event) {
@@ -31,12 +31,12 @@ $(document).ready(function(){
 			// This gives you a Google Access Token. You can use it to access the Google API.
 			var token = result.credential.accessToken;
 			// The signed-in user info.
-			user = result.user;
-			console.log(user);
+			siteuser = result.user;
+			console.log(siteuser);
 
 			// Change image
-			$("#user-pic").css('background-image', 'url(' + user.photoURL + ')');
-			$("#user-name").text(user.displayName);
+			$("#user-pic").css('background-image', 'url(' + siteuser.photoURL + ')');
+			$("#user-name").text(siteuser.displayName);
 			$("#user-name").attr('hidden', false);
 			$("#sign-in").attr('hidden', true);
 			$("#sign-out").attr('hidden', false);
@@ -44,11 +44,12 @@ $(document).ready(function(){
 			// database.ref().update(user.uid);
 
 			database.ref().push({
-				user: JSON.stringify(user)
+				user: JSON.stringify(siteuser)
 			});
 			console.log('sign in');
 		}).catch(function(error) {
 			console.log('Google sign in failed');
+			console.log(error);
 
 			// Sign in Anonymously 
 			firebase.auth().signInAnonymously();
@@ -60,7 +61,6 @@ $(document).ready(function(){
 					console.log('Anon Sign in successful ' + uid);
 				}
 			});
-			// console.log(error);
 			// Handle Errors here.
 			var errorCode = error.code;
 			var errorMessage = error.message;
