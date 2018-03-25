@@ -2,15 +2,15 @@ $(document).ready(function(){
 
 	// AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0
 	// Initialize Firebase
-	var config = {
-		apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
-		authDomain: "mindful-87015.firebaseapp.com",
-		databaseURL: "https://mindful-87015.firebaseio.com",
-		projectId: "mindful-87015",
-		storageBucket: "",
-		messagingSenderId: "716704348602"
-	};
-	firebase.initializeApp(config);
+	  var config = {
+	    apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
+	    authDomain: "mindful-8b7fa.firebaseapp.com",
+	    databaseURL: "https://mindful-8b7fa.firebaseio.com",
+	    projectId: "mindful-8b7fa",
+	    storageBucket: "mindful-8b7fa.appspot.com",
+	    messagingSenderId: "963063155418"
+	  };
+	  firebase.initializeApp(config);
 
 	var database = firebase.database();
 
@@ -35,11 +35,7 @@ $(document).ready(function(){
 			console.log(siteuser);
 
 			// Change image
-			$("#user-pic").css('background-image', 'url(' + siteuser.photoURL + ')');
-			$("#user-name").text(siteuser.displayName);
-			$("#user-name").attr('hidden', false);
-			$("#sign-in").attr('hidden', true);
-			$("#sign-out").attr('hidden', false);
+			showSignIn();
 
 			// database.ref().update(user.uid);
 
@@ -52,15 +48,22 @@ $(document).ready(function(){
 			console.log(error);
 
 			// Sign in Anonymously 
-			// firebase.auth().signInAnonymously();
-			// firebase.auth().onAuthStateChanged(function(user) {
-			// 	if (user) {
-			// 		// User is signed in.
-			// 		var isAnonymous = user.isAnonymous;
-			// 		var uid = user.uid;
-			// 		console.log('Anon Sign in successful ' + uid);
-			// 	}
-			// });
+			firebase.auth().signInAnonymously();
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					// User is signed in.
+					var isAnonymous = user.isAnonymous;
+					var uid = user.uid;
+					console.log('Anon Sign in successful ' + uid);
+					showSignIn();
+					database.ref().set({
+						userID: uid
+					});
+				}else {
+					console.log('Anon Sign logged off ' + uid);
+					showSignOut();
+				}
+			});
 			// Handle Errors here.
 			var errorCode = error.code;
 			var errorMessage = error.message;
@@ -77,19 +80,35 @@ $(document).ready(function(){
 
 		firebase.auth().signOut().then(function(){
 			console.log('sign out successful');
-			$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
-			$("#user-name").text('');
-			$("#user-name").attr('hidden', true);
-			$("#sign-in").attr('hidden', false);
-			$("#sign-out").attr('hidden', true);
+			showSignOut();
 		}).catch(function(error){
 			console.log('sign out failed');
 		});
 	});
 
 	database.ref().on('value', function(snapshot) {
-		console.log(snapshot.val().key);
+		console.log(snapshot.val());
 	});
 
+	function showSignIn(){
+		if(siteuser === null){
+			$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
+			$("#user-name").text('Anonymous');
+		}else {
+			$("#user-pic").css('background-image', 'url(' + siteuser.photoURL + ')');
+			$("#user-name").text(siteuser.displayName);
+		}
+		$("#user-name").attr('hidden', false);
+		$("#sign-in").attr('hidden', true);
+		$("#sign-out").attr('hidden', false);
+	}
+
+	function showSignOut(){
+		$("#user-pic").css('background-image', 'url(assets/images/profile_placeholder.png)');
+		$("#user-name").text('');
+		$("#user-name").attr('hidden', true);
+		$("#sign-in").attr('hidden', false);
+		$("#sign-out").attr('hidden', true);
+	}
 
 });

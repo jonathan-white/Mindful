@@ -23,65 +23,60 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- Custom JS -->
-  <script src="assets/js/login.js"></script>
-
+  <!-- <script src="assets/js/login.js"></script> -->
 </head>
 <body>
-      <!-- Start Nav Bar -->
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom border-secondary py-0 sticky-top">
-      <a class="navbar-brand" href="#">Mindful</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+	<!-- Start Nav Bar -->
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom border-secondary py-0 sticky-top">
+		<a class="navbar-brand" href="#">Mindful</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-      <div class="collapse navbar-collapse" id="navbarsExample03">
-        <ul class="navbar-nav mr-4">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">News</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="books.html">Books</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#mindfill.html">Mindfill <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-        <input id="search" class="form-control form-control-dark" type="text" placeholder="Search Your Mindfill...">
-        <!-- Start Sign-in -->
-        <div id="user-container">
-          <div hidden id="user-pic"></div>
-          <div hidden id="user-name"></div>
-          <!--<button id=btnSignin class="indexButton btn-action" onclick="btnSignin"> sign-in</button> -->
+		<div class="collapse navbar-collapse" id="navbarsExample03">
+			<ul class="navbar-nav mr-4">
+			  <li class="nav-item">
+			    <a class="nav-link" href="index.html">News</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="books.html">Books</a>
+			  </li>
+			  <li class="nav-item active">
+			    <a class="nav-link" href="#mindfill.html">Mindfill <span class="sr-only">(current)</span></a>
+			  </li>
+			</ul>
+			<input id="search" class="form-control form-control-dark" type="text" placeholder="Search Your Mindfill...">
+			<!-- Start Sign-in -->
+			<div id="user-container">
+				<div id="user-pic"></div>
+				<div hidden id="user-name"></div>
+				<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+					Sign-out
+				</button>
+				<button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+					<i class="material-icons">Sign-in</i>
+				</button> 
+			</div>
+			<!-- End Sign-in -->
+		</div>
+	</nav>
 
-          <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-           Sign-out
-          </button>
-          <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-            <i class="material-icons">Sign-in</i>
-            </button> 
-        </div>
-        <!-- End Sign-in -->
-      </div>
-    </nav>
-      <div 
-        class="parallax"> 
-      </div>
-        <div style="height:500px;background-color:transparent;font-size:36px">
-          <div class="jumbotron">
-              <h1 class="display-4">Greetings User</h1>
-                <p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind! </p>
-          </div>
-        </div>
-      <div 
-        class="parallax"> 
-      </div>
-    <div style="height:500px;background-color:transparent;font-size:36px">
-          <div class="jumbotron">
-              <h1 class="display-4">Greetings User</h1>
-                <p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind! </p>
-          </div>
-        </div>
+	<div class="parallax"></div>
+	<div style="height:500px;background-color:transparent;font-size:36px">
+		<div class="jumbotron">
+			<h1 class="display-4">Greetings User</h1>
+			<p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind!</p>
+		</div>
+	</div>
+	<div class="parallax2"></div>
+	<div style="height:500px;background-color:transparent;font-size:36px">
+		<div class="jumbotron">
+			<h1 class="display-4">Greetings User</h1>
+			<p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind! </p>
+		</div>
+	</div>
 
-    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
   </body>
 </html>
