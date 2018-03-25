@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	// AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0
 	// Initialize Firebase
 	var config = {
@@ -13,6 +12,12 @@ $(document).ready(function(){
 	firebase.initializeApp(config);
 
 	var database = firebase.database();
+
+	var userID;
+	if(localStorage.userID){
+		userID = localStorage.getItem("userID");
+		console.log('Already signed in as ' + userID);
+	}
 
 	// ------------------------------
 	// Handle Sign In / Sign Out
@@ -54,6 +59,10 @@ $(document).ready(function(){
 				var isAnonymous = user.isAnonymous;
 				var uid = user.uid;
 				userID = user.uid;
+
+				// Store UserID to localStorage
+				localStorage.setItem("userID",userID);
+
 				console.log('Sign in successful ' + uid);
 				console.log(user);
 
@@ -83,7 +92,7 @@ $(document).ready(function(){
 
 		// Record user's logout time in the database
 		writeLastLogout(userID);
-
+		localStorage.getItem("userID");
 		firebase.auth().signOut().then(function(){
 			console.log('Sign out successful (button click)');
 			// showSignOut();

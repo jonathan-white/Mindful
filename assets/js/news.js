@@ -1,5 +1,8 @@
 $(document).ready(function(){
-
+	
+	if(localStorage.userID){
+		userID = localStorage.getItem("userID");
+	}
 	// ------------------------------
 	// News API Endpoint & Ajax Call
 	// ------------------------------

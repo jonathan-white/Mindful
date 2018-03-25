@@ -2,6 +2,10 @@ $(document).ready(function(){
 
 	var database = firebase.database();
 
+	if(localStorage.userID){
+		userID = localStorage.getItem("userID");
+	}
+
 	var bookCache = {};
 	var index = null;
 	var newRating = null;
@@ -49,10 +53,17 @@ $(document).ready(function(){
 		}
 	});
 
-	// Use this codeblock to post saved books/news articles to user's mindfill 
-	database.ref('users').on('child_added', function(childSnapshot) {
-		console.log(childSnapshot.key);
+	database.ref().on('value', function(snapshot) {
+		if(snapshot.child('users/'+userID).exists()){
+			// user is already logged in
+			console.log('returning user: ' + userID);
+		}
 	});
+
+	// Use this codeblock to post saved books/news articles to user's mindfill 
+	// database.ref('users').on('child_added', function(childSnapshot) {
+	// 	console.log(childSnapshot.key);
+	// });
 
 	// Expand the Hidden section below the book details and summary
 	// $(".bk-excerpt").on('click', function(event) {
@@ -203,7 +214,12 @@ $(document).ready(function(){
 				// TODO: check if the user is logged in
 				if(userID != null){
 					database.ref('users/'+ userID +'/books/' + books[index].id).update({
-						lastViewed: firebase.database.ServerValue.TIMESTAMP
+						bookRef: books[index]
+					});
+					database.ref('users/'+ userID +'/books/' + books[index].id).update({
+						lastViewed: firebase.database.ServerValue.TIMESTAMP,
+						title: books[index].volumeInfo.title,
+						coverURL: books[index].volumeInfo.imageLinks.thumbnail || 'none'
 					});
 
 					if(books[i].volumeInfo.industryIdentifiers) {
@@ -213,50 +229,45 @@ $(document).ready(function(){
 					}
 				}
 
-				console.log("--------------");
-				console.log("Background Color: " + $(this).attr("data-bgColor"));
-				console.log("Color: " + $(this).css("color"));
-
-
 				// Update the modal's header with the book's title
-				$("#bookTitle").text(bookCache[index].volumeInfo.title);
+				$("#bookTitle").text(books[index].volumeInfo.title);
 
 				// Update the left side of the modal with the cover image and book details
-				if(bookCache[index].volumeInfo.imageLinks){
-					$(".bk-cover-img").attr('src', bookCache[index].volumeInfo.imageLinks.thumbnail);
+				if(books[index].volumeInfo.imageLinks){
+					$(".bk-cover-img").attr('src', books[index].volumeInfo.imageLinks.thumbnail);
 				}else {
 					$(".bk-cover-img").attr('src', 'assets/images/placeholder.jpg');
 				}
-				$(".bk-authors").text(bookCache[index].volumeInfo.authors);
-				var pubDate = new Date(bookCache[index].volumeInfo.publishedDate);
+				$(".bk-authors").text(books[index].volumeInfo.authors);
+				var pubDate = new Date(books[index].volumeInfo.publishedDate);
 				$(".bk-datePublished").text(pubDate.toLocaleDateString());
-				$(".bk-publisher").text(bookCache[index].volumeInfo.publisher);
-				$(".bk-pgCount").text(bookCache[index].volumeInfo.pageCount);
-				if(bookCache[index].volumeInfo.categories){
-					$(".bk-categories").text(bookCache[index].volumeInfo.categories);
+				$(".bk-publisher").text(books[index].volumeInfo.publisher);
+				$(".bk-pgCount").text(books[index].volumeInfo.pageCount);
+				if(books[index].volumeInfo.categories){
+					$(".bk-categories").text(books[index].volumeInfo.categories);
 				}
 
 				// Update the rating
 				hasUserSelectedRating = false;
 				$(".bk-rating").removeClass('user-rating');
-				displayRating(bookCache[index].volumeInfo.averageRating);
-				$(".bk-rating").attr('title', bookCache[index].volumeInfo.averageRating + ' out of 5 stars');
+				displayRating(books[index].volumeInfo.averageRating);
+				$(".bk-rating").attr('title', books[index].volumeInfo.averageRating + ' out of 5 stars');
 
 				// Update the right side of the modal with the book's description
-				$(".bk-desc").text(bookCache[index].volumeInfo.description);
+				$(".bk-desc").text(books[index].volumeInfo.description);
 
 				// Add a link to an excerpt of the book
-				$(".bk-excerpt").attr('href', 'https://play.google.com/books/reader?id='+ bookCache[index].id +'&printsec=frontcover&output=reader&hl=en');
+				$(".bk-excerpt").attr('href', 'https://play.google.com/books/reader?id='+ books[index].id +'&printsec=frontcover&output=reader&hl=en');
 			});
 			
 			// TODO: Move this If statement somewhere else
 			// Obtain the rendered width of the book (add to an array)
-			if(books[i].volumeInfo.industryIdentifiers){
-				var bookEl = document.getElementById("bk_"+books[i].id);
-				var bookRect = bookEl.getBoundingClientRect();
-				// console.log("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier + "- width:"+ bookRect.width);	
-				combinedBooksWidth += bookRect.width;
-			}
+			// if(books[i].volumeInfo.industryIdentifiers){
+			// 	var bookEl = document.getElementById("bk_"+books[i].id);
+			// 	var bookRect = bookEl.getBoundingClientRect();
+			// 	// console.log("bk_"+books[i].volumeInfo.industryIdentifiers[0].identifier + "- width:"+ bookRect.width);	
+			// 	combinedBooksWidth += bookRect.width;
+			// }
 
 			// TODO: adjust the number of books on each shelf based on the
 			// rendered width of all books on that shelf when the screen resizes
