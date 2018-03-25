@@ -99,7 +99,6 @@ $(document).ready(function(){
 		// default value.
 		userRating = newRating;
 		hasUserSelectedRating = true;
-
 		if(userID != null){
 			// Update database
 			database.ref('users/' + userID + '/books/' + bookCache[index].id).update({
@@ -213,6 +212,10 @@ $(document).ready(function(){
 				// Update the Modal form
 				index = $(this).attr('data-index');
 
+				// Check if the user has logged in
+				if(localStorage.userID){
+					userID = localStorage.getItem("userID");
+				}
 				// If the user is logged in
 				if(userID != null){
 					database.ref('users/'+ userID +'/books/' + books[index].id).update({

@@ -28,9 +28,10 @@ $(document).ready(function(){
 
 	var userID;
 	var siteuser;
-	if(localStorage.userID){
+	if(localStorage.userID && localStorage.userObj){
 		userID = localStorage.getItem("userID");
 		siteuser = JSON.parse(localStorage.getItem("userObj"));
+		console.log(siteuser)
 		console.log('Already signed in as ' + userID);
 		// need to use the user object
 		showSignIn(siteuser);

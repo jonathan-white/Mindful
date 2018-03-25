@@ -119,6 +119,9 @@ $(document).ready(function(){
 			const clickTrigger = $("<div class='click-trigger'>");
 			clickTrigger.on('click', function(event) {
 				event.preventDefault();
+				if(localStorage.userID){
+					userID = localStorage.getItem("userID");
+				}
 				$(this).closest('.card').toggleClass('expanded');
 				$(".prevent-hover-effect").toggleClass('active');
 
