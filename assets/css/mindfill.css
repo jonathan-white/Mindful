@@ -7,9 +7,9 @@
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
-    background-position: 50% 0%;
+    background-position: 50% 325%;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100%;
 }
 
 .news {
@@ -61,4 +61,8 @@
 
 .card-body {
     width: 100%;
+}
+
+#search {
+    visibility: hidden;
 }
