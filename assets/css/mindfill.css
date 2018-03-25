@@ -7,7 +7,7 @@
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
-    background-position: 50% 325%;
+    background-position: 50% 150%;
     background-repeat: no-repeat;
     background-size: 100%;
 }

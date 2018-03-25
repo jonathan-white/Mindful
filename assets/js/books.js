@@ -62,11 +62,6 @@ $(document).ready(function(){
 		}
 	});
 
-	// Use this codeblock to post saved books/news articles to user's mindfill 
-	// database.ref('users').on('child_added', function(childSnapshot) {
-	// 	console.log(childSnapshot.key);
-	// });
-
 	// Expand the Hidden section below the book details and summary
 	// $(".bk-excerpt").on('click', function(event) {
 	// 	// event.preventDefault();
@@ -257,11 +252,13 @@ $(document).ready(function(){
 					$(".bk-categories").text(books[index].volumeInfo.categories);
 				}
 
+				// TODO: check if the user has already rated this book
 				// Update the rating
 				hasUserSelectedRating = false;
 				$(".bk-rating").removeClass('user-rating');
-				displayRating(books[index].volumeInfo.averageRating);
-				$(".bk-rating").attr('title', books[index].volumeInfo.averageRating + ' out of 5 stars');
+				var bkRating = books[index].volumeInfo.averageRating;
+				displayRating(bkRating);
+				$(".bk-rating").attr('title', bkRating + ' out of 5 stars');
 
 				// Update the right side of the modal with the book's description
 				$(".bk-desc").text(books[index].volumeInfo.description);

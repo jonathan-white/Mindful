@@ -1,17 +1,4 @@
 $(document).ready(function(){
-	// AIzaSyBTnEq7wfAfQhyEtkxSBX0al23j05x-Fs0
-
-	//  Jon's Database
-	// Initialize Firebase
-	// var config = {
-	// 	apiKey: "AIzaSyDGB7XUtCBHNdqIvgqcE4D_lxZ8v6ZwzQU",
-	// 	authDomain: "mindful-8b7fa.firebaseapp.com",
-	// 	databaseURL: "https://mindful-8b7fa.firebaseio.com",
-	// 	projectId: "mindful-8b7fa",
-	// 	storageBucket: "mindful-8b7fa.appspot.com",
-	// 	messagingSenderId: "963063155418"
-	// };
-	// firebase.initializeApp(config);
 
 	// Initialize Firebase
 	var config = {
@@ -36,11 +23,7 @@ $(document).ready(function(){
 		// need to use the user object
 		showSignIn(siteuser);
 	}
-
-	// database.ref().once('value').then(function(snapshot){
-	// 	showSignIn(siteuser);
-	// });
-
+	
 	// ------------------------------
 	// Handle Sign In / Sign Out
 	// ------------------------------

@@ -13,7 +13,15 @@ $(document).ready(function(){
 		// Wait 2 seconds to allow localStorage to be updated
 		setTimeout(function(){
 			loadMindfill();
+			console.log('mindfill loaded');
 		}, 2000);
+	});
+
+	// Clear mindfill on log out
+	$("#sign-out").on('click', function(event) {
+		event.preventDefault();
+		// Empty mindfill
+		$(".news-collection, .book-collection").empty();
 	});
 
 	function loadMindfill(){
@@ -21,10 +29,12 @@ $(document).ready(function(){
 		if(localStorage.userID){
 			userID = localStorage.getItem("userID");
 			// Use this codeblock to post saved books/news articles to user's mindfill 
-			
+				
+			// database.ref('users/' + userID + '/news').child()
+
 			// Display Viewed News Articles
 			database.ref('users/' + userID + '/news').on('child_added', function(childSnapshot) {
-				console.log(childSnapshot.key);
+				// console.log(childSnapshot.key);
 				var card = $("<div class='card mb-3'>");
 				var card_img = $("<img class='card-img-top'>");
 				card_img.attr({
@@ -44,7 +54,7 @@ $(document).ready(function(){
 
 			// Display Viewed Books
 			database.ref('users/' + userID + '/books').on('child_added', function(childSnapshot) {
-				console.log(childSnapshot.key);
+				// console.log(childSnapshot.key);
 				var card = $("<div class='card mb-3'>");
 				var card_img = $("<img class='card-img-top'>");
 				card_img.attr({
