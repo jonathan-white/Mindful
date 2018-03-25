@@ -19,65 +19,197 @@
 	<link rel="stylesheet" href="assets/css/animations.css">
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
+
 	<!-- JQuery -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-  <!-- Custom JS -->
-  <script src="assets/js/login.js"></script>
-
+	<script src="assets/js/mindfill.js"></script>
 </head>
 <body>
       <!-- Start Nav Bar -->
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom border-secondary py-0 sticky-top">
       <a class="navbar-brand" href="#">Mindful</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+	      </button>
 
       <div class="collapse navbar-collapse" id="navbarsExample03">
         <ul class="navbar-nav mr-4">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">News</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="books.html">Books</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#mindfill.html">Mindfill <span class="sr-only">(current)</span></a>
-          </li>
+	          <li class="nav-item">
+	          <a class="nav-link" href="index.html">News</a>
+	          </li>
+	          <li class="nav-item">
+	        	<a class="nav-link" href="books.html">Books</a>
+	          </li>
+	          <li class="nav-item active">
+	          <a class="nav-link" href="#mindfill.html">Mindfill 
+          	<span class="sr-only">(current)</span></a>
+	          </li>
         </ul>
-        <input id="search" class="form-control form-control-dark" type="text" placeholder="Search Your Mindfill...">
+        <input id="search" class="form-control form-control-dark" type="text" placeholder="Search News...">
         <!-- Start Sign-in -->
         <div id="user-container">
-          <div hidden id="user-pic"></div>
-          <div hidden id="user-name"></div>
+        <div hidden id="user-pic"></div>
+        	<div hidden id="user-name"></div>
           <!--<button id=btnSignin class="indexButton btn-action" onclick="btnSignin"> sign-in</button> -->
 
-          <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-           Sign-out
-          </button>
-          <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-            <i class="material-icons">Sign-in</i>
-            </button> 
-        </div>
+		          <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+		           Sign-out
+		          </button>
+		          <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+	            <i class="material-icons">Sign-in</i>
+	            </button> 
+      		</div>
         <!-- End Sign-in -->
       </div>
     </nav>
-        <div style="height:500px;background-color:transparent;font-size:36px">
-          <div class="container">
-              <h1 class="display-4">Scroll Down To Enter</h1>
-                <p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind! </p>
-          </div>
-        </div>
-      <div 
-        class="parallax"> 
+    <!--1.How to display the information:
+    			Problem: Display the Books and the News Articles in effective ways -->
+
+
+
+      <div style="height:300px;background-color:transparent;font-size:36px">
+
+      		<!--Jumbotron to explain page.-->
+					<div class="jumbotron jumbotron-fluid">
+					  <div class="container">
+					    <h1 class="display-3">Mindfill</h1>
+					    <p class="lead">Test Text.</p>
+					  </div>
+					</div>
+    	</div>
+        	
+      <div
+      	class="parallax"> 
       </div>
-    <div style="height:500px;background-color:transparent;font-size:36px">
-          <div class="jumbotron">
-              <h1 class="display-4">Greetings User</h1>
-                <p class="lead">Landfills are terrible and a mind is a terrible thing to waste. Yet a mindfill, full of mindful content is terrific! So let's fill that mind! </p>
-          </div>
-        </div>
+
+  		<div style="height:300px;background-color:transparent;font-size:36px">  
+  			<section class="cd-horizontal-timeline">
+	<div class="timeline">
+		<div class="events-wrapper">
+			<div class="events">
+				<ol>
+					<li><a href="#0" data-date="16/01/2014" class="selected">16 Jan</a></li>
+					<li><a href="#0" data-date="28/02/2014">28 Feb</a></li>
+					<li><a href="#0" data-date="20/04/2014">20 Mar</a></li>
+					<li><a href="#0" data-date="20/05/2014">20 May</a></li>
+					<li><a href="#0" data-date="09/07/2014">09 Jul</a></li>
+					<li><a href="#0" data-date="30/08/2014">30 Aug</a></li>
+					<li><a href="#0" data-date="15/09/2014">15 Sep</a></li>
+					<li><a href="#0" data-date="01/11/2014">01 Nov</a></li>
+					<li><a href="#0" data-date="10/12/2014">10 Dec</a></li>
+					<li><a href="#0" data-date="19/01/2015">29 Jan</a></li>
+					<li><a href="#0" data-date="03/03/2015">3 Mar</a></li>
+				</ol>
+
+				<span class="filling-line" aria-hidden="true"></span>
+			</div> <!-- .events -->
+		</div> <!-- .events-wrapper -->
+			
+		<ul class="cd-timeline-navigation">
+			<li><a href="#0" class="prev inactive">Prev</a></li>
+			<li><a href="#0" class="next">Next</a></li>
+		</ul> <!-- .cd-timeline-navigation -->
+	</div> <!-- .timeline -->
+
+	<div class="events-content">
+		<ol>
+			<li class="selected" data-date="16/01/2014">
+				<h2>Horizontal Timeline</h2>
+				<em>January 16th, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="28/02/2014">
+				<h2>Event title here</h2>
+				<em>February 28th, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="20/04/2014">
+				<h2>Event title here</h2>
+				<em>March 20th, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="20/05/2014">
+				<h2>Event title here</h2>
+				<em>May 20th, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="09/07/2014">
+				<h2>Event title here</h2>
+				<em>July 9th, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="30/08/2014">
+				<h2>Event title here</h2>
+				<em>August 30th, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="15/09/2014">
+				<h2>Event title here</h2>
+				<em>September 15th, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="01/11/2014">
+				<h2>Event title here</h2>
+				<em>November 1st, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="10/12/2014">
+				<h2>Event title here</h2>
+				<em>December 10th, 2014</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="19/01/2015">
+				<h2>Event title here</h2>
+				<em>January 19th, 2015</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="03/03/2015">
+				<h2>Event title here</h2>
+				<em>March 3rd, 2015</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+		</ol>
+	</div> <!-- .events-content -->
+</section>  
+      </div>
+
+      <div
+      	class="parallax2"> 
+      </div>
+
+       
 
     
   </body>
