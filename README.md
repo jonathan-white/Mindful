@@ -1,6 +1,6 @@
 # Group-Project
 
-##Purpose
+## Purpose
 
 Mindful is a site that allows you to view top news stories and search for books. The site is broken into three sections: Newstand, Bookshelf and Mindfill. 
 
@@ -10,7 +10,7 @@ The Bookshelf page displays a series of books that you can open. Once opened, yo
 
 The Mindfill page displays all viewed news articles and books for logged in users. From this page you can also visit the news article or visit a page where you can purchase a viewed book.
 
-##How can you get Started?
+## How can you get Started?
 
 Sign in with your Google account.
 
@@ -18,8 +18,8 @@ While on the Newstand page, hover over a news article to get started. Click on a
 
 While on the Bookshelf page, click on a book to open the book.
 
-##Authors
+## Authors
 
-*Jon White
-*Farris Aziz
-*Renee Boyd
+* Jon White
+* Farris Aziz
+* Renee Boyd
