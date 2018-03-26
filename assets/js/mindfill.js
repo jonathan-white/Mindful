@@ -22,15 +22,18 @@ $(document).ready(function(){
 		event.preventDefault();
 		// Empty mindfill
 		$(".news-collection, .book-collection").empty();
+
+		var defaultText = $("<p>").text('Nothing Saved');
+
+		$(".news-collection, .book-collection").append(defaultText);
 	});
 
 	function loadMindfill(){
 		// Only display items if the user is logged in
 		if(localStorage.userID){
 			userID = localStorage.getItem("userID");
-			// Use this codeblock to post saved books/news articles to user's mindfill 
 				
-			// database.ref('users/' + userID + '/news').child()
+			$(".news-collection, .book-collection").empty();
 
 			// Display Viewed News Articles
 			database.ref('users/' + userID + '/news').on('child_added', function(childSnapshot) {

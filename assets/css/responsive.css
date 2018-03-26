@@ -55,11 +55,11 @@
 /* User Sign In/Out container */
 @media screen and (max-width: 610px) {
   #user-container {
-    top: 72px;
     background-color: rgb(3,155,229);
     height: 38px;
     padding-top: 3px;
     padding-right: 2px;
+    margin-bottom: 15px;
   }
   #user-container #user-pic {
     top: 2px;

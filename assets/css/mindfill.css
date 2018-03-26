@@ -7,9 +7,9 @@
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
-    background-position: 50% 150%;
+    background-position: 50% 0%;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 100% 70%;
 }
 
 .news {
