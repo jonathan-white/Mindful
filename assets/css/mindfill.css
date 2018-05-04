@@ -41,9 +41,18 @@
 }
 
 .card {
+    position: relative;
     overflow: hidden;
     width: 15rem;
     height: 22rem;
+}
+
+.news-collection .card:hover {
+    box-shadow: 0 0 10px 5px rgba(51, 153, 255, 1);
+}
+
+.book-collection .card:hover {
+    box-shadow: 0 0 10px 5px rgba(255, 153, 51, 1);
 }
 
 .news-collection .card-body {
@@ -59,10 +68,23 @@
     color: #fff;
 }
 
+#search {
+    visibility: hidden;
+}
 .card-body {
     width: 100%;
 }
 
-#search {
-    visibility: hidden;
+.card-close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid #aaa;
+    font-weight: 800;
 }
