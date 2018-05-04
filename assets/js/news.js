@@ -1,3 +1,5 @@
+var processing;
+
 $(document).ready(function(){
 
 	var database = firebase.database();
@@ -6,26 +8,33 @@ $(document).ready(function(){
 	if(localStorage.userID){
 		userID = localStorage.getItem("userID");
 	}
-	// ------------------------------
-	// News API Endpoint & Ajax Call
-	// ------------------------------
-	
-	// Display 20 top headlines on page load
-	var endpoint = 'https://newsapi.org/v2/top-headlines?';
-	endpoint += 'country=us';
-	endpoint += '&pageSize=100';
-	endpoint += '&apiKey=e95105e255ab4ca5b069b303112caa05';
 
-	$.ajax({
-		url: endpoint,
-		type: 'GET'
-	}).then(function(response) {
-		console.log(response);
+	loadArticles();
 
-		addArticlesToDOM(response);
-	}).catch(function(){
-		console.log('Unable to pull news articles.');
-	});
+	function loadArticles(){
+		// ------------------------------
+		// News API Endpoint & Ajax Call
+		// ------------------------------
+		
+		// Display 20 top headlines on page load
+		var endpoint = 'https://newsapi.org/v2/top-headlines?';
+		endpoint += 'country=us';
+		endpoint += '&pageSize=100';
+		// endpoint += '&page=' + pageNum;
+		endpoint += '&apiKey=e95105e255ab4ca5b069b303112caa05';
+
+		$.ajax({
+			url: endpoint,
+			type: 'GET'
+		}).then(function(response) {
+			console.log(response, endpoint);
+
+			addArticlesToDOM(response);
+			processing = false;
+		}).catch(function(){
+			console.log('Unable to pull news articles.');
+		});		
+	}
 
 	$(".prevent-hover-effect").click(function(event) {
 		$(".card.expanded").toggleClass('expanded');
@@ -67,16 +76,13 @@ $(document).ready(function(){
 		var articles = data.articles;
 
 		for (var i = 0; i < articles.length; i++) {
-			$("#news-container").append(aCard(articles[i]));
+			var newCard = aCard(articles[i]);
+			if(newCard){
+				$("#news-container").append(aCard(articles[i]));
+			}
 		}
 
 	};
-
-	// $(window).scroll(function(event) {
-	// 	// Trigger ajax call when .scrollTop() is > 500
-	// 	console.log($(this).scrollTop());
-	// 	// Trigger ajax call when you are close to the entire height of the page
-	// });
 
 	// -------------------------
 	// Generate an Article Card
@@ -214,5 +220,18 @@ $(document).ready(function(){
 			});	
 		}
 	};
+
+	// Continously load articles
+	$(document).scroll(function(event) {
+		
+		if(processing){
+			return false;
+		}
+
+		if($(window).scrollTop() >= $(document).height() - $(window).height() - 700){
+			processing = true;
+			loadArticles();
+		}
+	});
 
 });
