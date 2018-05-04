@@ -24,11 +24,7 @@ $(document).ready(function(){
 
 		addArticlesToDOM(response);
 	}).catch(function(){
-		console.log('News API failed, getting news from backup...');
-		// Error handling
-		// https://api.nuzzel.com/v1.0/news
-		// 
-		// https://api.nuzzel.com/v1.0/reports
+		console.log('Unable to pull news articles.');
 	});
 
 	$(".prevent-hover-effect").click(function(event) {
@@ -70,51 +66,17 @@ $(document).ready(function(){
 		// An array to hold the returned list of articles
 		var articles = data.articles;
 
-		// Variables to reference the 3 columns where the articles will be placed
-		// var col_one = $(".img-col-1");
-		// var col_two = $(".img-col-2");
-		// var col_three = $(".img-col-3");
-
-		// For each of the three columns, generate 7 article cards from the articles array
-		// for (var c = 0; c < 3; c++) {
-		// 	if (c === 0){
-		// 		for (var r = 0; r < 7; r++) {
-		// 			col_one.prepend(aCard(articles[r]));
-		// 		}
-		// 	}else if (c === 1){
-		// 		for (var r = 7; r < 14; r++) {
-		// 			col_two.prepend(aCard(articles[r]));
-		// 		}
-		// 	}else if(c === 2){
-		// 		for (var r = 14; r < 20; r++) {
-		// 			col_three.prepend(aCard(articles[r]));
-		// 		}	
-		// 	}
-		// }
-
 		for (var i = 0; i < articles.length; i++) {
 			$("#news-container").append(aCard(articles[i]));
 		}
-		// Lazy Loading of images
-		// for (var i = 0; i < articles.length; i++) {
-		// 	var img = $("<img src='blank.gif'>");
-		// 	img.attr({
-		// 		"src": articles[i].urlToImage,
-		// 		"data-src": articles[i].urlToImage,
-		// 		"width": 600,
-		// 		"hight": 400,
-		// 		"class": "lazy"
-		// 	});
-		// 	// <img src="blank.gif" data-src="my_image.png" width="600" height="400" class="lazy">
-		// 	$(".img-col-1").append(img);
-		// }
+
 	};
 
-	$(window).scroll(function(event) {
-		// Trigger ajax call when .scrollTop() is > 500
-		console.log($(this).scrollTop());
-		// Trigger ajax call when you are close to the entire height of the page
-	});
+	// $(window).scroll(function(event) {
+	// 	// Trigger ajax call when .scrollTop() is > 500
+	// 	console.log($(this).scrollTop());
+	// 	// Trigger ajax call when you are close to the entire height of the page
+	// });
 
 	// -------------------------
 	// Generate an Article Card

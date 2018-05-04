@@ -30,10 +30,9 @@
 
 /* Scale cards by a factor of 1.1 on hover. Also Adjust how the card moves
    depending on which column it falls under */
-.img-col-1 .card:hover {transform: matrix(1.1,0,0,1.1,20,0);}
-.img-col-2 .card:hover {transform: scale(1.1);}
-.img-col-3 .card:hover {transform: matrix(1.1,0,0,1.1,-20,0);}
-
+#news-container .card:hover {transform: matrix(1.1,0,0,1.1,20,0);}
+#news-container .card:hover {transform: scale(1.1);}
+#news-container .card:hover {transform: matrix(1.1,0,0,1.1,-20,0);}
 
 /* Article Image Zoom out */
 .card-img-top {
@@ -80,14 +79,14 @@
 
 /* Have text fly in from different sides, depending on the column */
 .card:hover .article-text {animation: slide_fromTop 1s ease forwards;}
-.img-col-1 .card:hover .card-title,
-.img-col-1 .card:hover .card-text {animation: slide_fromLeft 1s 750ms ease forwards;}
+#news-container .card:hover .card-title,
+#news-container .card:hover .card-text {animation: slide_fromLeft 1s 750ms ease forwards;}
 
-.img-col-2 .card:hover .card-title,
-.img-col-2 .card:hover .card-text {animation: slide_fromTop 1s ease forwards;}
+#news-container .card:hover .card-title,
+#news-container .card:hover .card-text {animation: slide_fromTop 1s ease forwards;}
 
-.img-col-3 .card:hover .card-title,
-.img-col-3 .card:hover .card-text {animation: slide_fromRight 1s 750ms ease forwards;}
+#news-container .card:hover .card-title,
+#news-container .card:hover .card-text {animation: slide_fromRight 1s 750ms ease forwards;}
 
 .click-trigger {
 	position: absolute;
@@ -121,17 +120,17 @@
 	box-shadow: 0px 2px 50px rgba(0,0,0,.8), 0px 0px 20px 10px rgba(0,0,0,0.6);
 }
 
-.img-col-1 .card.expanded {animation: expand_fromLeft 500ms forwards;}
-.img-col-2 .card.expanded {animation: expand_fromCenter 500ms forwards;}
-.img-col-3 .card.expanded {animation: expand_fromRight 500ms forwards;}
+#news-container .card.expanded {animation: expand_fromLeft 500ms forwards;}
+#news-container .card.expanded {animation: expand_fromCenter 500ms forwards;}
+#news-container .card.expanded {animation: expand_fromRight 500ms forwards;}
 
 .card.expanded .click-trigger {
 	display: none;
 }
 
-.img-col-1 .card.expanded:hover,
-.img-col-2 .card.expanded:hover,
-.img-col-3 .card.expanded:hover {
+#news-container .card.expanded:hover,
+#news-container .card.expanded:hover,
+#news-container .card.expanded:hover {
 	transform: none;
 	box-shadow: 0px 2px 50px rgba(0,0,0,.8), 0px 0px 20px 10px rgba(0,0,0,0.6);
 }
@@ -140,16 +139,16 @@
 	transform: none;
 }
 
-.img-col-1 .card.expanded .card-title, .img-col-1 .card.expanded .card-text,
-.img-col-2 .card.expanded .card-title, .img-col-2 .card.expanded .card-text,
-.img-col-3 .card.expanded .card-title, .img-col-3 .card.expanded .card-text {
+#news-container .card.expanded .card-title, #news-container .card.expanded .card-text,
+#news-container .card.expanded .card-title, #news-container .card.expanded .card-text,
+#news-container .card.expanded .card-title, #news-container .card.expanded .card-text {
     opacity: 1;
     animation: none;
 }
 
-.img-col-1 .card.expanded:hover .card-title,.img-col-1 .card.expanded:hover .card-text, 
-.img-col-2 .card.expanded:hover .card-title,.img-col-2 .card.expanded:hover .card-text,
-.img-col-3 .card.expanded:hover .card-title,.img-col-3 .card.expanded:hover .card-text {
+#news-container .card.expanded:hover .card-title,#news-container .card.expanded:hover .card-text, 
+#news-container .card.expanded:hover .card-title,#news-container .card.expanded:hover .card-text,
+#news-container .card.expanded:hover .card-title,#news-container .card.expanded:hover .card-text {
     animation: none;
     opacity: 1;
 }
