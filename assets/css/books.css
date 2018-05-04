@@ -79,24 +79,10 @@
     line-height: 2;
     font-family: sans-serif;
 }
-/*
-.book::after {
-	content: attr(data-author-length);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) rotate(90deg);
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    line-height: 1.5;
-    background-color: #fff;
-    border: 1px solid #000;
-    font-size: .8125rem;
-    font-family: sans-serif;
-    padding: 4px;
-    color: #000;
-}*/
+
+.book:hover {
+    box-shadow: 0 0 20px 5px rgba(255,255,255,.7);
+}
 
 /* Tilt/Stack books */
 .book-wrapper.tilt-1 {
