@@ -1,4 +1,4 @@
-# Group-Project
+# Mindful
 
 ## Purpose
 

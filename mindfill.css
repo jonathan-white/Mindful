@@ -1,0 +1,68 @@
+.mindfill {
+    /* The image used */
+    background: url("../images/abstract1.jpg");
+
+    /* Set a specific height */
+    min-height: 300px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    background-size: 100% 70%;
+}
+
+.news {
+    /* The image used */
+    background: url("../images/news.jpg");
+
+    /* Set a specific height */
+    min-height: 300px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.books {
+    /* The image used */
+    background: url("../images/image2.jpg");
+
+    /* Set a specific height */
+    min-height: 300px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card {
+    overflow: hidden;
+    width: 15rem;
+    height: 22rem;
+}
+
+.news-collection .card-body {
+    position: absolute;
+    top: 135px;
+    background-color: #fff;
+}
+
+.book-collection .card-body {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+}
+
+.card-body {
+    width: 100%;
+}
+
+#search {
+    visibility: hidden;
+}
