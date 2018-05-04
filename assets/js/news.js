@@ -1,4 +1,7 @@
 var processing;
+var searchQuery;
+var pageNum = 1;
+var displayedArticles = 0;
 
 $(document).ready(function(){
 
@@ -9,9 +12,9 @@ $(document).ready(function(){
 		userID = localStorage.getItem("userID");
 	}
 
-	loadArticles();
+	loadTopNewsArticles();
 
-	function loadArticles(){
+	function loadTopNewsArticles(){
 		// ------------------------------
 		// News API Endpoint & Ajax Call
 		// ------------------------------
@@ -27,13 +30,41 @@ $(document).ready(function(){
 			url: endpoint,
 			type: 'GET'
 		}).then(function(response) {
-			console.log(response, endpoint);
+			// console.log(response);
 
 			addArticlesToDOM(response);
 			processing = false;
 		}).catch(function(){
 			console.log('Unable to pull news articles.');
 		});		
+	}
+
+	function loadSearchResults(query){
+		// Display 20 search results sorted by popularity
+		var endpoint = 'https://newsapi.org/v2/everything?';
+		endpoint += 'q=' + encodeURIComponent(query);
+		endpoint += '&apiKey=e95105e255ab4ca5b069b303112caa05';
+		endpoint += '&language=en';
+		endpoint += '&sortBy=popularity';
+		endpoint += '&pageSize=20';
+		endpoint += '&page=' + pageNum;
+
+		$.ajax({
+			url: endpoint,
+			type: 'GET'
+		}).then(function(response) {
+			// console.log(response);
+
+			addArticlesToDOM(response);
+			displayedArticles += 20;
+			if(response.totalResults > displayedArticles){
+				pageNum++;
+			}
+			processing = false;
+		}).catch(function(err){
+			// Error handling
+			console.error(err);
+		});	
 	}
 
 	$(".prevent-hover-effect").click(function(event) {
@@ -46,39 +77,28 @@ $(document).ready(function(){
 		// User Input Validation
 		var query = $(this).val().trim();
 		if(query.length > 0){
-			// Display 30 search results sorted by popularity
-			var endpoint = 'https://newsapi.org/v2/everything?';
-			endpoint += 'q=' + encodeURIComponent(query);
-			endpoint += '&apiKey=e95105e255ab4ca5b069b303112caa05';
-			endpoint += '&language=en';
-			endpoint += '&sortBy=popularity';
-			endpoint += '&pageSize=30';
-			// endpoint += '&sources=abc-news,cbs-news,bloomberg,cnbc,cnn,entertainment-weekly,fox-news,espn,fortune,google-news,nbc-news,mtv-news,reuters,usa-today,the-washington-post,the-wall-street-journal'
+			searchQuery = query;
 
-			$.ajax({
-				url: endpoint,
-				type: 'GET'
-			}).then(function(response) {
-				console.log(response);
-
-				addArticlesToDOM(response);
-			}).catch(function(){
-				// Error handling
-			});			
+			$("#news-container").empty();
+			loadSearchResults(searchQuery);	
 		}
 	});
 
 	// ------------------------------
 	// Updates the DOM with the returned list of Articles
 	// ------------------------------
-	function addArticlesToDOM(data) {
+	function addArticlesToDOM(data, position) {
 		// An array to hold the returned list of articles
 		var articles = data.articles;
 
 		for (var i = 0; i < articles.length; i++) {
 			var newCard = aCard(articles[i]);
 			if(newCard){
-				$("#news-container").append(aCard(articles[i]));
+				if(position === "prepend") {
+					$("#news-container").prepend(aCard(articles[i]));
+				} else {
+					$("#news-container").append(aCard(articles[i]));
+				}
 			}
 		}
 
@@ -229,8 +249,13 @@ $(document).ready(function(){
 		}
 
 		if($(window).scrollTop() >= $(document).height() - $(window).height() - 700){
-			processing = true;
-			loadArticles();
+			processing = true;	
+
+			if(searchQuery){
+				loadSearchResults(searchQuery);
+			} else {
+				loadTopNewsArticles();
+			}
 		}
 	});
 
