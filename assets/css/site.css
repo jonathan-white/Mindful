@@ -24,11 +24,11 @@ a:hover {
 	animation: text_boom 750ms ease-out forwards;
 }
 
-.form-control-dark {
+/* .form-control-dark {
     color: #fff;
     background-color: rgba(255, 255, 255, .1);
     border-color: rgba(255, 255, 255, .1);
-}
+} */
 
 .navbar-nav {
 	flex-direction: row;
@@ -88,7 +88,7 @@ footer .right {
   width: 100px;
   height: 40px;
   background-size: 40px;
-  border-radius: 20px;
+  border-radius: 50%;
   margin-left: 10px;
 }
 #user-container #user-name {

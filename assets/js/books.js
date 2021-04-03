@@ -16,7 +16,7 @@ $(document).ready(function(){
 	var hasUserSelectedRating = false;
 
 	// Perform an initial search to return a default list of books
-	var bookQuery = "https://www.googleapis.com/books/v1/volumes?q=the+name+of+the+wind";
+	var bookQuery = "https://www.googleapis.com/books/v1/volumes?q=a+promised+land";
 	bookQuery += "&maxResults=40";
 
 	$.ajax({

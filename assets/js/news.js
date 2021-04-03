@@ -196,13 +196,13 @@ $(document).ready(function(){
 	function getVideos(query, target){
 		// User Input Validation
 		if(query.length > 0){
-			var youtubeEndpoint = "https://www.googleapis.com/youtube/v3/search?";
+			var youtubeEndpoint = "https://youtube.googleapis.com/youtube/v3/search?";
 			youtubeEndpoint += "q=" + encodeURIComponent(query);
 			youtubeEndpoint += "&maxResults=10";
 			youtubeEndpoint += "&part=snippet";
 			youtubeEndpoint += "&type=video";
 			youtubeEndpoint += "&videoEmbeddable=true";
-			youtubeEndpoint += "&key=AIzaSyAm23TJ9V0IroP_-LPZHlyRj1-P4UbkqHk";
+			youtubeEndpoint += "&key=AIzaSyDF6GoJ_T46NGy9NT44MqKpKpr9yJcdPzw";
 
 			$.ajax({
 				url: youtubeEndpoint,
@@ -217,7 +217,7 @@ $(document).ready(function(){
 						video.attr({
 							"class": "video",
 							"type": "text/html",
-							"width": 187,
+							"width": 200,
 							// "height": 390,
 							"src": "https://www.youtube.com/embed/" + vidID + "?enablejsapi=1",
 							"frameborder": 0,

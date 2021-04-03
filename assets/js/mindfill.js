@@ -52,7 +52,7 @@ $(document).ready(function(){
 				card_link.attr('href', childSnapshot.val().newsRef.url);
 				card_body.append(card_title, card_text, card_link);
 				card.append(card_img, card_body, card_close);
-				$(".news-collection").append(card);
+				$(".news-collection").prepend(card);
 
 				addListeners();
 			});
@@ -75,7 +75,7 @@ $(document).ready(function(){
 				card_link.attr('href', 'https://www.amazon.com/gp/search/ref=sr_adv_b/?field-isbn=' + childSnapshot.val().isbn);
 				card_body.append(card_title, card_text, card_link);
 				card.append(card_img, card_body, card_close);
-				$(".book-collection").append(card);
+				$(".book-collection").prepend(card);
 
 				addListeners();
 			});
